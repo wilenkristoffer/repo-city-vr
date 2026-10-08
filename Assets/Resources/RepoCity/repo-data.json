@@ -1,0 +1,229 @@
+{
+  "repoName": "repo-city-unity",
+  "files": [
+    {
+      "path": ".gitignore",
+      "dir": "",
+      "name": ".gitignore",
+      "ext": "",
+      "size": 203,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-a.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-skyscraper-a.fbx",
+      "ext": "fbx",
+      "size": 56832,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-b.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-skyscraper-b.fbx",
+      "ext": "fbx",
+      "size": 63296,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-c.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-skyscraper-c.fbx",
+      "ext": "fbx",
+      "size": 69344,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-d.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-skyscraper-d.fbx",
+      "ext": "fbx",
+      "size": 73200,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-e.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-skyscraper-e.fbx",
+      "ext": "fbx",
+      "size": 51616,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/colormap.png",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "colormap.png",
+      "ext": "png",
+      "size": 11002,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-a.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-a.fbx",
+      "ext": "fbx",
+      "size": 27760,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-b.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-b.fbx",
+      "ext": "fbx",
+      "size": 27968,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-c.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-c.fbx",
+      "ext": "fbx",
+      "size": 26864,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-d.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-d.fbx",
+      "ext": "fbx",
+      "size": 25936,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-e.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-e.fbx",
+      "ext": "fbx",
+      "size": 26160,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-f.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-f.fbx",
+      "ext": "fbx",
+      "size": 25504,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-g.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-g.fbx",
+      "ext": "fbx",
+      "size": 27312,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-h.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-h.fbx",
+      "ext": "fbx",
+      "size": 31072,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-i.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-i.fbx",
+      "ext": "fbx",
+      "size": 26688,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-j.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-j.fbx",
+      "ext": "fbx",
+      "size": 27936,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-k.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-k.fbx",
+      "ext": "fbx",
+      "size": 25392,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-l.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-l.fbx",
+      "ext": "fbx",
+      "size": 26784,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-m.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-m.fbx",
+      "ext": "fbx",
+      "size": 27872,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-n.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-n.fbx",
+      "ext": "fbx",
+      "size": 26592,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-wide-a.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-wide-a.fbx",
+      "ext": "fbx",
+      "size": 27040,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-wide-b.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-wide-b.fbx",
+      "ext": "fbx",
+      "size": 28704,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    },
+    {
+      "path": "scripts/generate-repo-data.js",
+      "dir": "scripts",
+      "name": "generate-repo-data.js",
+      "ext": "js",
+      "size": 2897,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:05:34+02:00"
+    }
+  ],
+  "dirs": [
+    "",
+    "Assets",
+    "Assets/Resources",
+    "Assets/Resources/RepoCity",
+    "Assets/Resources/RepoCity/Buildings",
+    "scripts"
+  ]
+}
