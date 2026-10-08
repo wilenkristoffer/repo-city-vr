@@ -52,16 +52,23 @@ namespace RepoCity {
                     GameObject vegetationRoot = VegetationScatter.Scatter(layout);
                     vegetationRoot.transform.SetParent(islandRoot.transform, false);
 
-                    TrafficSpawner.Spawn(islandRoot.transform, roads.carLoopWaypoints, CarCount);
-                    NpcSpawner.Spawn(islandRoot.transform, roads.sidewalkLoopWaypoints, NpcCount);
-
-                    // Everything above was built/spawned while islandRoot sat at local (0,0,0), since
-                    // TrafficSpawner/NpcSpawner position their spawns with the world-space Transform.position
-                    // setter - only shifting the parent now carries them correctly to worldCenter.
+                    // City/roads/vegetation above were built/parented while islandRoot sat at local
+                    // (0,0,0), so shifting the parent now carries them correctly to worldCenter.
                     islandRoot.transform.localPosition = worldCenter;
 
                     List<Vector3> carWaypointsWorld = roads.carLoopWaypoints.ConvertAll(p => p + worldCenter);
                     List<Vector3> sidewalkWaypointsWorld = roads.sidewalkLoopWaypoints.ConvertAll(p => p + worldCenter);
+
+                    // Traffic/NPCs are spawned AFTER the shift, and given the already-WORLD-space
+                    // waypoint lists, because CarFollower/NpcWalker cache the list by reference and
+                    // chase it every frame against transform.position - if they were spawned (and
+                    // handed the pre-shift local list) before the parent moved, the GameObjects would
+                    // still end up in the right place (parenting carries them along), but their cached
+                    // waypoints would forever be offset by -worldCenter from where transform.position
+                    // actually is, so they'd drive/walk straight off toward the origin instead of
+                    // looping their own ring road.
+                    TrafficSpawner.Spawn(islandRoot.transform, carWaypointsWorld, CarCount);
+                    NpcSpawner.Spawn(islandRoot.transform, sidewalkWaypointsWorld, NpcCount);
 
                     WorldIslandResult result = new WorldIslandResult {
                         config = config,

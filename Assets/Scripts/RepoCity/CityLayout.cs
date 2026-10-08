@@ -184,6 +184,16 @@ namespace RepoCity
             }
 
             // 4. Center the whole arrangement so bounds end up symmetric around world (0,0) on X/Z.
+            if (districtCount == 0)
+            {
+                return new CityLayoutResult
+                {
+                    districts = districts,
+                    buildings = buildings,
+                    bounds = new CityBounds { minX = -1f, maxX = 1f, minZ = -1f, maxZ = 1f }
+                };
+            }
+
             float minX = float.MaxValue, maxX = float.MinValue;
             float minZ = float.MaxValue, maxZ = float.MinValue;
 

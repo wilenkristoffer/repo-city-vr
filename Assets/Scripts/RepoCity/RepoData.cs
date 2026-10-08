@@ -41,7 +41,10 @@ namespace RepoCity
                     "Run scripts/generate-repo-data.js to generate it before building/playing the scene.");
             }
 
-            return JsonUtility.FromJson<RepoData>(asset.text);
+            RepoData data = JsonUtility.FromJson<RepoData>(asset.text);
+            if (data.files == null) data.files = new List<FileEntry>();
+            if (data.dirs == null) data.dirs = new List<string>();
+            return data;
         }
     }
 }

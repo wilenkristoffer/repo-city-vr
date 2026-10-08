@@ -106,6 +106,7 @@ namespace RepoCity
 
         static void Spawn(GameObject prefab, Vector3 pos, Quaternion rot, Transform parent)
         {
+            if (prefab == null) return;
             GameObject go = Object.Instantiate(prefab, pos, rot, parent);
             MeshRenderer mr = go.GetComponentInChildren<MeshRenderer>();
             if (mr != null) mr.receiveShadows = true;

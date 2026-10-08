@@ -81,12 +81,48 @@ and `CodeKiosk.cs` already make to them. A `grep -rn` pass confirmed no code ref
 times outside one comment), so it SHOULD compile, but **Task 0 below must confirm this
 before anything else starts**, since several tasks below build on top of a working build.
 
-A background code-review workflow (run ID `wf_4293e93b-70b`, 5 reviewers + adversarial
-verify over every existing script) was started but may not have finished before the session
-ended — check
-`C:\Users\wilen\.claude\projects\c--Users-wilen-Desktop-VR\b65c0922-542c-4a09-ba52-32ae5000aa00\subagents\workflows\wf_4293e93b-70b\journal.jsonl`
-for its `{"type":"result",...}` lines before re-running it; if it has results, fold its
-confirmed findings into Task 0.
+**UPDATE — the audit finished and results are already triaged.** 33 agents (5 reviewers +
+28 adversarial verifiers), 23/28 findings confirmed real. Full raw JSON saved at
+`audit-findings-raw.json` (project root), condensed one-line-per-finding digest at
+`audit-digest.txt` (project root, grouped by severity). **4 of the highest-value ones are
+already fixed** (commit after `2324a0d`, see `git log`):
+- `WorldBuilder.cs`: traffic/NPC waypoints were captured in the island's pre-shift local
+  frame, then the island moved to `worldCenter` afterward — cars/NPCs on every island except
+  the home one were driving/walking in a straight line toward the origin instead of looping
+  their ring road. Fixed by spawning traffic/NPCs *after* the shift, with the already-offset
+  world-space waypoint lists.
+- `CityLayout.cs`: an empty repo (`"files": []`) left `CityBounds` inverted
+  (`minX=float.MaxValue, maxX=float.MinValue`), which `CityBuilder.BuildGround` turned into
+  an `-Infinity` ground-plane scale. Fixed with an early-return sane-default bounds when
+  `districtCount == 0`.
+- `RepoData.cs`: a repo-data.json missing the `"files"`/`"dirs"` key deserialized to `null`
+  lists (Unity's `JsonUtility` doesn't null-check), crashing `CityLayoutBuilder.Compute`
+  with a raw NRE. Fixed by defaulting both to empty lists right after `FromJson`.
+- `RoadNetwork.cs`: `Resources.Load` results for road prefabs went straight into
+  `Object.Instantiate` with no null check (every other spawner in the codebase guards this).
+  Fixed with a guard in the shared `Spawn()` helper.
+
+A clean Unity batchmode compile-check (no `-buildWindows64Player`, just a bare batchmode
+launch + `grep "error CS"`) was run after these fixes and came back clean.
+
+**19 confirmed findings are still open** — read `audit-digest.txt` for the full list, grouped
+HIGH/MEDIUM/LOW; the two standout HIGH ones left: **(1)** `MiniLang.cs`'s hand-written
+recursive-descent parser/interpreter has no nesting-depth limit — deeply nested parens
+pasted into a kiosk's InputField can throw an uncatchable `StackOverflowException` that
+kills the whole process (needs a depth counter threaded through `Primary()`/`Unary()`/
+`Block()`/`Evaluate()`/`Execute()`, throwing a normal `MiniLangError` past some sane limit
+like 200). **(2)** `MiniLang.cs` also has no per-step *cost* accounting — only a step
+*count* ceiling — so something like repeated string-doubling (`s = s + s` in a loop) can
+exhaust memory in ~30 iterations, long before the 200,000-step ceiling means anything (needs
+either a string-length cap in `EvalBinary`'s `+` case, or a cumulative output-size budget).
+Both live in the same file and are good candidates for one dedicated agent given how fiddly
+mutual verification of a parser/interpreter fix tends to be. The `audit-digest.txt` MEDIUM/LOW
+list also includes a real, confirmed note that **Programming Central's approach-direction
+assumption is wrong** (`CodeArcadeBuilder.cs` was told to assume the player approaches from
+-Z, but `WorldBootstrapper.cs` actually places the arcade west of the home island along -X)
+— worth a quick fix (re-aim the sign/kiosks to face -X instead of -Z, or move the arcade to
+sit south of spawn instead of west) before anyone actually walks there and finds the signs
+backwards.
 
 ## Existing APIs you'll want (don't re-derive, don't rename)
 
@@ -130,13 +166,22 @@ confirmed findings into Task 0.
 
 ## Task 0 — MUST run first, sequential, before anything else touches the project
 
-1. Run the compile-check command above. If `error CS` shows up, read the errors and fix them
-   (small/targeted fixes — this is maintenance, not a redesign).
-2. Check the audit workflow journal (path above). If it has results, triage: fix anything
-   confirmed+high-severity yourself right now (small, targeted); for anything confirmed but
-   larger, turn it into an extra task below before firing the parallel batch.
-3. Commit the fix (if any) by itself before the parallel batch starts, so later tasks branch
-   from a known-good compiling state.
+**Already done as of the last commit**: compile-check is clean, and the 4 highest-value
+audit findings are already fixed (see "UPDATE" note above). What's still needed before firing
+the parallel batch:
+1. Fix the two remaining HIGH severity `MiniLang.cs` findings (parser/interpreter recursion
+   depth limit; per-step cost/memory accounting) — see `audit-digest.txt`. These are
+   correctness/safety issues (an uncatchable process-killing crash, and an OOM/freeze
+   vector), not cosmetic, so they should land before new features pile more code on top.
+2. Fix the `CodeArcadeBuilder.cs`/`WorldBootstrapper.cs` approach-direction mismatch noted
+   above (quick).
+3. Skim the remaining MEDIUM/LOW findings in `audit-digest.txt` and decide which are worth a
+   quick fix now vs. deferring — none of them are launch-blocking.
+4. Re-run the compile-check, then do a full build + launch + screenshot pass (see "How to
+   build & test" above) to confirm the World Hub + Programming Central still work end to end
+   after these fixes, before starting the parallel feature batch.
+5. Commit this cleanup by itself before the parallel batch starts, so later tasks branch
+   from a known-good, tested state.
 
 ## Tasks 1-8 — independent, can run as 5-10 parallel agents
 
