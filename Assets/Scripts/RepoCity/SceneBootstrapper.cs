@@ -26,10 +26,13 @@ namespace RepoCity {
 
             city.transform.SetParent(transform, false);
 
-            // Player rig: starts outside the city at +Z, looking in toward -Z.
+            // Player rig: starts outside the city at +Z, rotated 180 degrees so its forward
+            // (and WASD movement, which is rig-relative) actually points at the city at the
+            // origin, rather than away from it.
             GameObject rig = new GameObject("Player Rig");
             rig.transform.SetParent(transform, false);
             rig.transform.position = new Vector3(0f, 0f, 40f);
+            rig.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
 
             Camera cam = Camera.main;
             if (cam != null) {
@@ -52,7 +55,11 @@ namespace RepoCity {
             GameObject hudGO = new GameObject("HUD");
             hudGO.transform.SetParent(transform, false);
             hudGO.transform.position = new Vector3(0f, 1.5f, 38f);
+            // World-space UI canvases read correctly from their LOCAL -Z side, so after
+            // LookAt (which points local +Z at the target) we flip 180 degrees so the
+            // readable face actually points back at the spawn point/camera.
             hudGO.transform.LookAt(new Vector3(0f, 1.5f, 40f));
+            hudGO.transform.Rotate(0f, 180f, 0f);
 
             HudPanel hudPanel = hudGO.AddComponent<HudPanel>();
             hudPanel.Initialize(layout);
