@@ -8,7 +8,124 @@
       "ext": "",
       "size": 203,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": ".vscode/extensions.json",
+      "dir": ".vscode",
+      "name": "extensions.json",
+      "ext": "json",
+      "size": 75,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": ".vscode/launch.json",
+      "dir": ".vscode",
+      "name": "launch.json",
+      "ext": "json",
+      "size": 178,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": ".vscode/settings.json",
+      "dir": ".vscode",
+      "name": "settings.json",
+      "ext": "json",
+      "size": 1845,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assembly-CSharp-Editor.csproj",
+      "dir": "",
+      "name": "Assembly-CSharp-Editor.csproj",
+      "ext": "csproj",
+      "size": 88770,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assembly-CSharp.csproj",
+      "dir": "",
+      "name": "Assembly-CSharp.csproj",
+      "ext": "csproj",
+      "size": 85946,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Editor.meta",
+      "dir": "Assets",
+      "name": "Editor.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Editor/SetupScene.cs",
+      "dir": "Assets/Editor",
+      "name": "SetupScene.cs",
+      "ext": "cs",
+      "size": 1221,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Editor/SetupScene.cs.meta",
+      "dir": "Assets/Editor",
+      "name": "SetupScene.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Editor/SetupXR.cs",
+      "dir": "Assets/Editor",
+      "name": "SetupXR.cs",
+      "ext": "cs",
+      "size": 2906,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Editor/SetupXR.cs.meta",
+      "dir": "Assets/Editor",
+      "name": "SetupXR.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources.meta",
+      "dir": "Assets",
+      "name": "Resources.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity.meta",
+      "dir": "Assets/Resources",
+      "name": "RepoCity.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings.meta",
+      "dir": "Assets/Resources/RepoCity",
+      "name": "Buildings.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-a.fbx",
@@ -17,7 +134,16 @@
       "ext": "fbx",
       "size": 56832,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-a.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-skyscraper-a.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-b.fbx",
@@ -26,7 +152,16 @@
       "ext": "fbx",
       "size": 63296,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-b.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-skyscraper-b.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-c.fbx",
@@ -35,7 +170,16 @@
       "ext": "fbx",
       "size": 69344,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-c.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-skyscraper-c.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-d.fbx",
@@ -44,7 +188,16 @@
       "ext": "fbx",
       "size": 73200,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-d.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-skyscraper-d.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-e.fbx",
@@ -53,7 +206,16 @@
       "ext": "fbx",
       "size": 51616,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-e.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-skyscraper-e.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/colormap.png",
@@ -62,7 +224,16 @@
       "ext": "png",
       "size": 11002,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/colormap.png.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "colormap.png.meta",
+      "ext": "meta",
+      "size": 3069,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-a.fbx",
@@ -71,7 +242,16 @@
       "ext": "fbx",
       "size": 27760,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-a.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-a.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-b.fbx",
@@ -80,7 +260,16 @@
       "ext": "fbx",
       "size": 27968,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-b.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-b.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-c.fbx",
@@ -89,7 +278,16 @@
       "ext": "fbx",
       "size": 26864,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-c.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-c.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-d.fbx",
@@ -98,7 +296,16 @@
       "ext": "fbx",
       "size": 25936,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-d.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-d.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-e.fbx",
@@ -107,7 +314,16 @@
       "ext": "fbx",
       "size": 26160,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-e.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-e.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-f.fbx",
@@ -116,7 +332,16 @@
       "ext": "fbx",
       "size": 25504,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-f.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-f.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-g.fbx",
@@ -125,7 +350,16 @@
       "ext": "fbx",
       "size": 27312,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-g.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-g.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-h.fbx",
@@ -134,7 +368,16 @@
       "ext": "fbx",
       "size": 31072,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-h.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-h.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-i.fbx",
@@ -143,7 +386,16 @@
       "ext": "fbx",
       "size": 26688,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-i.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-i.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-j.fbx",
@@ -152,7 +404,16 @@
       "ext": "fbx",
       "size": 27936,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-j.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-j.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-k.fbx",
@@ -161,7 +422,16 @@
       "ext": "fbx",
       "size": 25392,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-k.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-k.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-l.fbx",
@@ -170,7 +440,16 @@
       "ext": "fbx",
       "size": 26784,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-l.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-l.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-m.fbx",
@@ -179,7 +458,16 @@
       "ext": "fbx",
       "size": 27872,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-m.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-m.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-n.fbx",
@@ -188,7 +476,16 @@
       "ext": "fbx",
       "size": 26592,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-n.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-n.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-wide-a.fbx",
@@ -197,7 +494,16 @@
       "ext": "fbx",
       "size": 27040,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-wide-a.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-wide-a.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-wide-b.fbx",
@@ -206,24 +512,591 @@
       "ext": "fbx",
       "size": 28704,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
-      "path": "scripts/generate-repo-data.js",
-      "dir": "scripts",
-      "name": "generate-repo-data.js",
-      "ext": "js",
-      "size": 2897,
+      "path": "Assets/Resources/RepoCity/Buildings/low-detail-building-wide-b.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "low-detail-building-wide-b.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
       "commits": 1,
-      "lastModified": "2026-10-08T20:05:34+02:00"
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/repo-data.json",
+      "dir": "Assets/Resources/RepoCity",
+      "name": "repo-data.json",
+      "ext": "json",
+      "size": 7179,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/repo-data.json.meta",
+      "dir": "Assets/Resources/RepoCity",
+      "name": "repo-data.json.meta",
+      "ext": "meta",
+      "size": 158,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scenes.meta",
+      "dir": "Assets",
+      "name": "Scenes.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scenes/RepoCity.unity",
+      "dir": "Assets/Scenes",
+      "name": "RepoCity.unity",
+      "ext": "unity",
+      "size": 4831,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scenes/RepoCity.unity.meta",
+      "dir": "Assets/Scenes",
+      "name": "RepoCity.unity.meta",
+      "ext": "meta",
+      "size": 155,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts.meta",
+      "dir": "Assets",
+      "name": "Scripts.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity.meta",
+      "dir": "Assets/Scripts",
+      "name": "RepoCity.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/BuildingPalette.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "BuildingPalette.cs",
+      "ext": "cs",
+      "size": 4126,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/BuildingPalette.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "BuildingPalette.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/CityBuilder.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "CityBuilder.cs",
+      "ext": "cs",
+      "size": 9211,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/CityBuilder.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "CityBuilder.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/CityLayout.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "CityLayout.cs",
+      "ext": "cs",
+      "size": 8507,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/CityLayout.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "CityLayout.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/HudPanel.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "HudPanel.cs",
+      "ext": "cs",
+      "size": 7438,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/HudPanel.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "HudPanel.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/Locomotion.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "Locomotion.cs",
+      "ext": "cs",
+      "size": 9688,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/Locomotion.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "Locomotion.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/OllamaNarrator.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "OllamaNarrator.cs",
+      "ext": "cs",
+      "size": 6401,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/OllamaNarrator.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "OllamaNarrator.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/RepoData.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "RepoData.cs",
+      "ext": "cs",
+      "size": 1053,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/RepoData.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "RepoData.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/SceneBootstrapper.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "SceneBootstrapper.cs",
+      "ext": "cs",
+      "size": 5195,
+      "commits": 2,
+      "lastModified": "2026-10-08T20:31:29+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/SceneBootstrapper.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "SceneBootstrapper.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR 1.meta",
+      "dir": "Assets",
+      "name": "XR 1.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR.meta",
+      "dir": "Assets",
+      "name": "XR.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR/Loaders.meta",
+      "dir": "Assets/XR",
+      "name": "Loaders.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR/Loaders/OpenXRLoader.asset",
+      "dir": "Assets/XR/Loaders",
+      "name": "OpenXRLoader.asset",
+      "ext": "asset",
+      "size": 452,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR/Loaders/OpenXRLoader.asset.meta",
+      "dir": "Assets/XR/Loaders",
+      "name": "OpenXRLoader.asset.meta",
+      "ext": "meta",
+      "size": 189,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR/Settings 1.meta",
+      "dir": "Assets/XR",
+      "name": "Settings 1.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR/Settings.meta",
+      "dir": "Assets/XR",
+      "name": "Settings.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR/Settings/OpenXR Editor Settings.asset",
+      "dir": "Assets/XR/Settings",
+      "name": "OpenXR Editor Settings.asset",
+      "ext": "asset",
+      "size": 581,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR/Settings/OpenXR Editor Settings.asset.meta",
+      "dir": "Assets/XR/Settings",
+      "name": "OpenXR Editor Settings.asset.meta",
+      "ext": "meta",
+      "size": 189,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR/Settings/OpenXR Package Settings.asset",
+      "dir": "Assets/XR/Settings",
+      "name": "OpenXR Package Settings.asset",
+      "ext": "asset",
+      "size": 37097,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR/Settings/OpenXR Package Settings.asset.meta",
+      "dir": "Assets/XR/Settings",
+      "name": "OpenXR Package Settings.asset.meta",
+      "ext": "meta",
+      "size": 189,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR/Settings/XRGeneralSettingsPerBuildTarget.asset",
+      "dir": "Assets/XR/Settings",
+      "name": "XRGeneralSettingsPerBuildTarget.asset",
+      "ext": "asset",
+      "size": 1737,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/XR/Settings/XRGeneralSettingsPerBuildTarget.asset.meta",
+      "dir": "Assets/XR/Settings",
+      "name": "XRGeneralSettingsPerBuildTarget.asset.meta",
+      "ext": "meta",
+      "size": 189,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Packages/manifest.json",
+      "dir": "Packages",
+      "name": "manifest.json",
+      "ext": "json",
+      "size": 1870,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Packages/packages-lock.json",
+      "dir": "Packages",
+      "name": "packages-lock.json",
+      "ext": "json",
+      "size": 10379,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/AudioManager.asset",
+      "dir": "ProjectSettings",
+      "name": "AudioManager.asset",
+      "ext": "asset",
+      "size": 523,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/ClusterInputManager.asset",
+      "dir": "ProjectSettings",
+      "name": "ClusterInputManager.asset",
+      "ext": "asset",
+      "size": 114,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/DynamicsManager.asset",
+      "dir": "ProjectSettings",
+      "name": "DynamicsManager.asset",
+      "ext": "asset",
+      "size": 1575,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/EditorBuildSettings.asset",
+      "dir": "ProjectSettings",
+      "name": "EditorBuildSettings.asset",
+      "ext": "asset",
+      "size": 467,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/EditorSettings.asset",
+      "dir": "ProjectSettings",
+      "name": "EditorSettings.asset",
+      "ext": "asset",
+      "size": 1691,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/GraphicsSettings.asset",
+      "dir": "ProjectSettings",
+      "name": "GraphicsSettings.asset",
+      "ext": "asset",
+      "size": 2825,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/InputManager.asset",
+      "dir": "ProjectSettings",
+      "name": "InputManager.asset",
+      "ext": "asset",
+      "size": 5816,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/MemorySettings.asset",
+      "dir": "ProjectSettings",
+      "name": "MemorySettings.asset",
+      "ext": "asset",
+      "size": 1265,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/MultiplayerManager.asset",
+      "dir": "ProjectSettings",
+      "name": "MultiplayerManager.asset",
+      "ext": "asset",
+      "size": 157,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/NavMeshAreas.asset",
+      "dir": "ProjectSettings",
+      "name": "NavMeshAreas.asset",
+      "ext": "asset",
+      "size": 1361,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/Physics2DSettings.asset",
+      "dir": "ProjectSettings",
+      "name": "Physics2DSettings.asset",
+      "ext": "asset",
+      "size": 1863,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/PhysicsCoreProjectSettings2D.asset",
+      "dir": "ProjectSettings",
+      "name": "PhysicsCoreProjectSettings2D.asset",
+      "ext": "asset",
+      "size": 151,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/PresetManager.asset",
+      "dir": "ProjectSettings",
+      "name": "PresetManager.asset",
+      "ext": "asset",
+      "size": 146,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/ProjectAuditorSettings.asset",
+      "dir": "ProjectSettings",
+      "name": "ProjectAuditorSettings.asset",
+      "ext": "asset",
+      "size": 1036,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/ProjectSettings.asset",
+      "dir": "ProjectSettings",
+      "name": "ProjectSettings.asset",
+      "ext": "asset",
+      "size": 20707,
+      "commits": 2,
+      "lastModified": "2026-10-08T20:31:29+02:00"
+    },
+    {
+      "path": "ProjectSettings/ProjectVersion.txt",
+      "dir": "ProjectSettings",
+      "name": "ProjectVersion.txt",
+      "ext": "txt",
+      "size": 83,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/QualitySettings.asset",
+      "dir": "ProjectSettings",
+      "name": "QualitySettings.asset",
+      "ext": "asset",
+      "size": 9802,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/SceneTemplateSettings.json",
+      "dir": "ProjectSettings",
+      "name": "SceneTemplateSettings.json",
+      "ext": "json",
+      "size": 3535,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/TagManager.asset",
+      "dir": "ProjectSettings",
+      "name": "TagManager.asset",
+      "ext": "asset",
+      "size": 443,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/TimeManager.asset",
+      "dir": "ProjectSettings",
+      "name": "TimeManager.asset",
+      "ext": "asset",
+      "size": 305,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/UnityConnectSettings.asset",
+      "dir": "ProjectSettings",
+      "name": "UnityConnectSettings.asset",
+      "ext": "asset",
+      "size": 1191,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/VFXManager.asset",
+      "dir": "ProjectSettings",
+      "name": "VFXManager.asset",
+      "ext": "asset",
+      "size": 558,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "ProjectSettings/VersionControlSettings.asset",
+      "dir": "ProjectSettings",
+      "name": "VersionControlSettings.asset",
+      "ext": "asset",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "repo-city-unity-project.slnx",
+      "dir": "",
+      "name": "repo-city-unity-project.slnx",
+      "ext": "slnx",
+      "size": 125,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:20:43+02:00"
     }
   ],
   "dirs": [
     "",
+    ".vscode",
     "Assets",
+    "Assets/Editor",
     "Assets/Resources",
     "Assets/Resources/RepoCity",
     "Assets/Resources/RepoCity/Buildings",
-    "scripts"
+    "Assets/Scenes",
+    "Assets/Scripts",
+    "Assets/Scripts/RepoCity",
+    "Assets/XR",
+    "Assets/XR/Loaders",
+    "Assets/XR/Settings",
+    "Packages",
+    "ProjectSettings"
   ]
 }

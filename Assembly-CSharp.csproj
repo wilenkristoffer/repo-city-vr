@@ -52,13 +52,18 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.6.5f1\Editor\Data\BCLExtensions\TargetingPacks\netstandard2.1\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\RepoCity\NpcController.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\NpcChat.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\TrafficController.cs" />
     <Compile Include="Assets\Scripts\RepoCity\CityBuilder.cs" />
     <Compile Include="Assets\Scripts\RepoCity\CityLayout.cs" />
     <Compile Include="Assets\Scripts\RepoCity\RepoData.cs" />
     <Compile Include="Assets\Scripts\RepoCity\OllamaNarrator.cs" />
     <Compile Include="Assets\Scripts\RepoCity\SceneBootstrapper.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\VegetationScatter.cs" />
     <Compile Include="Assets\Scripts\RepoCity\Locomotion.cs" />
     <Compile Include="Assets\Scripts\RepoCity\HudPanel.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\RoadNetwork.cs" />
     <Compile Include="Assets\Scripts\RepoCity\BuildingPalette.cs" />
   </ItemGroup>
   <ItemGroup>

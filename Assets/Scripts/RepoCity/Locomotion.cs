@@ -6,6 +6,7 @@ namespace RepoCity
     public class Locomotion : MonoBehaviour
     {
         public System.Action<FileEntry> OnInspect;
+        public System.Action<NpcInfo> OnInteractNpc;
 
         public float moveSpeed = 3f;
         public float lookSensitivity = 3f;
@@ -218,10 +219,17 @@ namespace RepoCity
             RaycastHit hit;
             if (Physics.Raycast(worldOrigin, worldDirection, out hit, inspectMaxDistance))
             {
-                BuildingInfo info = hit.collider.GetComponentInParent<BuildingInfo>();
-                if (info != null)
+                BuildingInfo buildingInfo = hit.collider.GetComponentInParent<BuildingInfo>();
+                if (buildingInfo != null)
                 {
-                    OnInspect?.Invoke(info.file);
+                    OnInspect?.Invoke(buildingInfo.file);
+                    return;
+                }
+
+                NpcInfo npcInfo = hit.collider.GetComponentInParent<NpcInfo>();
+                if (npcInfo != null)
+                {
+                    OnInteractNpc?.Invoke(npcInfo);
                     return;
                 }
             }

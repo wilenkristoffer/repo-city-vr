@@ -8,13 +8,18 @@ public class BuildingInfo : MonoBehaviour {
 }
 
 public static class CityBuilder {
+    const float ShortBuildingHeightThreshold = 6f;
     const float SkyscraperHeightThreshold = 14f;
 
+    const float ShortMinScaleY = 0.8f;
+    const float ShortMaxScaleY = 3.5f;
     const float StandardMinScaleY = 0.6f;
     const float StandardMaxScaleY = 6f;
     const float SkyscraperMinScaleY = 0.6f;
     const float SkyscraperMaxScaleY = 8f;
 
+    const float ShortXZScaleMin = 1.8f;
+    const float ShortXZScaleMax = 2.3f;
     const float StandardXZScaleMin = 3.0f;
     const float StandardXZScaleMax = 3.6f;
     const float SkyscraperXZScaleMin = 1.3f;
@@ -22,6 +27,14 @@ public static class CityBuilder {
 
     const float GroundMargin = 40f;
     const float UnityPlaneDefaultSize = 10f; // CreatePrimitive(Plane) is 10x10 world units at scale 1
+
+    // Shorter, wider "regular" buildings (natural proportions ~0.9m x 1.3m x 0.9m) - used for
+    // the lowest height tier so the skyline isn't just a forest of thin towers.
+    static readonly string[] ShortModels = {
+        "building-a", "building-b", "building-c", "building-d", "building-e", "building-f",
+        "building-g", "building-h", "building-i", "building-j", "building-k", "building-l",
+        "building-m", "building-n"
+    };
 
     static readonly string[] StandardModels = {
         "low-detail-building-a", "low-detail-building-b", "low-detail-building-c",
@@ -61,9 +74,15 @@ public static class CityBuilder {
         return root;
     }
 
+    enum HeightTier { Short, Standard, Skyscraper }
+
     static void BuildOneBuilding(CityBuilding building, Transform parent, Dictionary<string, GameObject> prefabCache, Dictionary<string, float> actualHeights) {
-        bool isSkyscraper = building.height >= SkyscraperHeightThreshold;
-        string[] pool = isSkyscraper ? SkyscraperModels : StandardModels;
+        HeightTier tier = building.height >= SkyscraperHeightThreshold ? HeightTier.Skyscraper
+            : building.height >= ShortBuildingHeightThreshold ? HeightTier.Standard
+            : HeightTier.Short;
+        string[] pool = tier == HeightTier.Skyscraper ? SkyscraperModels
+            : tier == HeightTier.Standard ? StandardModels
+            : ShortModels;
 
         uint seed = HashString(building.id);
         System.Func<float> rand = Mulberry32(seed);
@@ -91,12 +110,14 @@ public static class CityBuilder {
             naturalMinY = renderer.bounds.min.y;
         }
 
-        float xzScale = isSkyscraper
-            ? RandomRange(rand, SkyscraperXZScaleMin, SkyscraperXZScaleMax)
-            : RandomRange(rand, StandardXZScaleMin, StandardXZScaleMax);
+        float xzScale = tier == HeightTier.Skyscraper ? RandomRange(rand, SkyscraperXZScaleMin, SkyscraperXZScaleMax)
+            : tier == HeightTier.Standard ? RandomRange(rand, StandardXZScaleMin, StandardXZScaleMax)
+            : RandomRange(rand, ShortXZScaleMin, ShortXZScaleMax);
 
-        float minScaleY = isSkyscraper ? SkyscraperMinScaleY : StandardMinScaleY;
-        float maxScaleY = isSkyscraper ? SkyscraperMaxScaleY : StandardMaxScaleY;
+        float minScaleY = tier == HeightTier.Skyscraper ? SkyscraperMinScaleY
+            : tier == HeightTier.Standard ? StandardMinScaleY : ShortMinScaleY;
+        float maxScaleY = tier == HeightTier.Skyscraper ? SkyscraperMaxScaleY
+            : tier == HeightTier.Standard ? StandardMaxScaleY : ShortMaxScaleY;
         float scaleY = Mathf.Clamp(building.height / naturalHeight, minScaleY, maxScaleY);
 
         instance.transform.localScale = new Vector3(xzScale, scaleY, xzScale);

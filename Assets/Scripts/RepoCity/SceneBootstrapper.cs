@@ -6,6 +6,9 @@ namespace RepoCity {
     // and everything else (city, rig, HUD) is created at runtime.
     public class SceneBootstrapper : MonoBehaviour {
 
+        const int CarCount = 6;
+        const int NpcCount = 10;
+
         int inspectToken = 0;
 
         void Start() {
@@ -26,12 +29,26 @@ namespace RepoCity {
 
             city.transform.SetParent(transform, false);
 
+            RoadNetworkResult roads = RoadNetwork.Build(layout);
+            roads.root.transform.SetParent(transform, false);
+
+            GameObject vegetation = VegetationScatter.Scatter(layout);
+            vegetation.transform.SetParent(transform, false);
+
+            TrafficSpawner.Spawn(transform, roads.carLoopWaypoints, CarCount);
+            NpcSpawner.Spawn(transform, roads.sidewalkLoopWaypoints, NpcCount);
+
+            // Spawn just past the sidewalk ring (which sits ~11m beyond the building bounds),
+            // so the player arrives clear of both the road and the pedestrian path, with the
+            // vegetation band (14m+) still a short walk ahead.
+            float spawnZ = layout.bounds.maxZ + 13f;
+
             // Player rig: starts outside the city at +Z, rotated 180 degrees so its forward
             // (and WASD movement, which is rig-relative) actually points at the city at the
             // origin, rather than away from it.
             GameObject rig = new GameObject("Player Rig");
             rig.transform.SetParent(transform, false);
-            rig.transform.position = new Vector3(0f, 0f, 40f);
+            rig.transform.position = new Vector3(0f, 0f, spawnZ);
             rig.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
 
             Camera cam = Camera.main;
@@ -54,11 +71,11 @@ namespace RepoCity {
             // so it reads naturally the moment the player appears.
             GameObject hudGO = new GameObject("HUD");
             hudGO.transform.SetParent(transform, false);
-            hudGO.transform.position = new Vector3(0f, 1.5f, 38f);
+            hudGO.transform.position = new Vector3(0f, 1.5f, spawnZ - 2f);
             // World-space UI canvases read correctly from their LOCAL -Z side, so after
             // LookAt (which points local +Z at the target) we flip 180 degrees so the
             // readable face actually points back at the spawn point/camera.
-            hudGO.transform.LookAt(new Vector3(0f, 1.5f, 40f));
+            hudGO.transform.LookAt(new Vector3(0f, 1.5f, spawnZ));
             hudGO.transform.Rotate(0f, 180f, 0f);
 
             HudPanel hudPanel = hudGO.AddComponent<HudPanel>();
@@ -79,6 +96,21 @@ namespace RepoCity {
                 StartCoroutine(OllamaNarrator.GetNarration(file, text => {
                     if (token == inspectToken) {
                         hudPanel.ShowNarration(file, text);
+                    }
+                }));
+            };
+
+            // Same race-guard scheme as building inspection, sharing one counter so quickly
+            // switching between a building and an NPC can't show a stale result on top of a
+            // newer one.
+            locomotion.OnInteractNpc = (NpcInfo npc) => {
+                inspectToken++;
+                int token = inspectToken;
+
+                hudPanel.ShowNpcLine(npc.personaName, npc.personaJob, "...");
+                StartCoroutine(NpcChat.GetLine(npc, line => {
+                    if (token == inspectToken) {
+                        hudPanel.ShowNpcLine(npc.personaName, npc.personaJob, line);
                     }
                 }));
             };

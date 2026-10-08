@@ -113,6 +113,14 @@ namespace RepoCity {
             narrationBodyText.text = text;
         }
 
+        public void ShowNpcLine(string personaName, string personaJob, string line) {
+            defaultGroup.SetActive(false);
+            narrationGroup.SetActive(true);
+            narrationHeadingText.text = personaName;
+            narrationSubheadingText.text = personaJob;
+            narrationBodyText.text = line;
+        }
+
         public void ClearNarration() {
             narrationGroup.SetActive(false);
             defaultGroup.SetActive(true);
