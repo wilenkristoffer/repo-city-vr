@@ -28,11 +28,16 @@ namespace RepoCity
     {
         public static RepoData Load()
         {
-            TextAsset asset = Resources.Load<TextAsset>("RepoCity/repo-data");
+            return Load("RepoCity/repo-data");
+        }
+
+        public static RepoData Load(string resourcePath)
+        {
+            TextAsset asset = Resources.Load<TextAsset>(resourcePath);
             if (asset == null)
             {
                 throw new Exception(
-                    "RepoCity: could not find Resources/RepoCity/repo-data.json. " +
+                    "RepoCity: could not find Resources/" + resourcePath + ".json. " +
                     "Run scripts/generate-repo-data.js to generate it before building/playing the scene.");
             }
 

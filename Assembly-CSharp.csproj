@@ -56,15 +56,23 @@
     <Compile Include="Assets\Scripts\RepoCity\NpcChat.cs" />
     <Compile Include="Assets\Scripts\RepoCity\TrafficController.cs" />
     <Compile Include="Assets\Scripts\RepoCity\CityBuilder.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\WorldLighting.cs" />
     <Compile Include="Assets\Scripts\RepoCity\CityLayout.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\CodeArcadeBuilder.cs" />
     <Compile Include="Assets\Scripts\RepoCity\RepoData.cs" />
     <Compile Include="Assets\Scripts\RepoCity\OllamaNarrator.cs" />
     <Compile Include="Assets\Scripts\RepoCity\SceneBootstrapper.cs" />
     <Compile Include="Assets\Scripts\RepoCity\VegetationScatter.cs" />
     <Compile Include="Assets\Scripts\RepoCity\Locomotion.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\MiniLang.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\WorldBuilder.cs" />
     <Compile Include="Assets\Scripts\RepoCity\HudPanel.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\CodeChallenges.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\CodeKiosk.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\WorldConfig.cs" />
     <Compile Include="Assets\Scripts\RepoCity\RoadNetwork.cs" />
     <Compile Include="Assets\Scripts\RepoCity\BuildingPalette.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\WorldBootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

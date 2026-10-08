@@ -40,8 +40,8 @@ namespace RepoCity
 
     public static class CityLayoutBuilder
     {
-        const float DistrictGap = 6f;
-        const float BuildingGap = 1.5f;
+        const float DistrictGap = 3f;
+        const float BuildingGap = 0.6f;
         const float BuildingSize = 2.2f;
 
         public static CityLayoutResult Compute(RepoData data)

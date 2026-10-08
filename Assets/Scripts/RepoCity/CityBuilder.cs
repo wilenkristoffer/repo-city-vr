@@ -130,7 +130,7 @@ public static class CityBuilder {
         actualHeights[building.id] = naturalHeight * scaleY;
 
         if (renderer != null) {
-            renderer.material.color = BuildingPalette.CategoryForExt(building.file.ext).color;
+            renderer.material.color = JitteredColor(BuildingPalette.CategoryForExt(building.file.ext).color, rand);
         }
 
         if (instance.GetComponentInChildren<Collider>() == null && renderer != null) {
@@ -191,6 +191,19 @@ public static class CityBuilder {
 
         labelObj.transform.LookAt(new Vector3(0f, labelY, 40f));
         labelObj.transform.Rotate(0f, 180f, 0f); // TextMesh's face is on the opposite side of its forward axis
+    }
+
+    // Nudges hue/saturation/value per-building so a category isn't one flat color block repeated
+    // across the skyline; same building.id always gets the same nudge (seeded rand).
+    static Color JitteredColor(Color baseColor, System.Func<float> rand) {
+        float h, s, v;
+        Color.RGBToHSV(baseColor, out h, out s, out v);
+        h += (rand() - 0.5f) * 0.04f;
+        s = Mathf.Clamp01(s * RandomRange(rand, 0.85f, 1.1f));
+        v = Mathf.Clamp01(v * RandomRange(rand, 0.9f, 1.2f));
+        Color result = Color.HSVToRGB(((h % 1f) + 1f) % 1f, s, v);
+        result.a = baseColor.a;
+        return result;
     }
 
     static float RandomRange(System.Func<float> rand, float min, float max) {

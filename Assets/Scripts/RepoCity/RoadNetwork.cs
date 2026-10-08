@@ -12,8 +12,8 @@ namespace RepoCity
 
     public static class RoadNetwork
     {
-        const float RoadMargin = 8f;       // outward from layout.bounds to the road centerline rectangle
-        const float SidewalkMargin = 3f;   // additional outward offset, beyond the road rectangle
+        const float RoadMargin = 4f;       // outward from layout.bounds to the road centerline rectangle
+        const float SidewalkMargin = 1.5f; // additional outward offset, beyond the road rectangle
         const float SidewalkSpacing = 2.5f;
 
         public static RoadNetworkResult Build(CityLayoutResult layout)
@@ -74,6 +74,29 @@ namespace RepoCity
                 Spawn(prefab, pos, rot, parent);
                 waypoints.Add(pos);
             }
+        }
+
+        // Lays a straight line of 1m road tiles between two axis-aligned points (same X or same Z),
+        // for connecting separate city islands in a multi-repo world. Returns the waypoint list in
+        // order from `from` to `to`, in case a caller wants cars/NPCs to travel the connector too.
+        public static List<Vector3> BuildConnector(Vector3 from, Vector3 to, Transform parent)
+        {
+            GameObject straightPrefab = Resources.Load<GameObject>("RepoCity/Roads/road-straight");
+            List<Vector3> waypoints = new List<Vector3>();
+
+            bool alongX = Mathf.Abs(to.x - from.x) >= Mathf.Abs(to.z - from.z);
+            float yRotation = alongX ? 90f : 0f;
+
+            if (alongX)
+            {
+                PlaceStraightRun(straightPrefab, parent, waypoints, from.x, to.x, true, from.z, yRotation);
+            }
+            else
+            {
+                PlaceStraightRun(straightPrefab, parent, waypoints, from.z, to.z, false, from.x, yRotation);
+            }
+
+            return waypoints;
         }
 
         static void PlaceBend(GameObject prefab, Vector3 pos, float yRotation, Transform parent)

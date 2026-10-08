@@ -12,6 +12,8 @@ namespace RepoCity {
         int inspectToken = 0;
 
         void Start() {
+            WorldLighting.Setup();
+
             RepoData data;
             CityLayoutResult layout;
             GameObject city;

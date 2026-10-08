@@ -51,9 +51,9 @@
       "dir": "",
       "name": "Assembly-CSharp.csproj",
       "ext": "csproj",
-      "size": 85946,
-      "commits": 1,
-      "lastModified": "2026-10-08T20:20:43+02:00"
+      "size": 86286,
+      "commits": 2,
+      "lastModified": "2026-10-08T20:51:30+02:00"
     },
     {
       "path": "Assets/Editor.meta",
@@ -126,6 +126,258 @@
       "size": 172,
       "commits": 1,
       "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-a.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-a.fbx",
+      "ext": "fbx",
+      "size": 56672,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-a.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-a.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-b.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-b.fbx",
+      "ext": "fbx",
+      "size": 56096,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-b.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-b.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-c.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-c.fbx",
+      "ext": "fbx",
+      "size": 57920,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-c.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-c.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-d.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-d.fbx",
+      "ext": "fbx",
+      "size": 56320,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-d.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-d.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-e.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-e.fbx",
+      "ext": "fbx",
+      "size": 64192,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-e.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-e.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-f.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-f.fbx",
+      "ext": "fbx",
+      "size": 71216,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-f.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-f.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-g.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-g.fbx",
+      "ext": "fbx",
+      "size": 73536,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-g.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-g.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-h.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-h.fbx",
+      "ext": "fbx",
+      "size": 62960,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-h.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-h.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-i.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-i.fbx",
+      "ext": "fbx",
+      "size": 85424,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-i.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-i.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-j.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-j.fbx",
+      "ext": "fbx",
+      "size": 154032,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-j.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-j.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-k.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-k.fbx",
+      "ext": "fbx",
+      "size": 98816,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-k.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-k.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-l.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-l.fbx",
+      "ext": "fbx",
+      "size": 110864,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-l.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-l.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-m.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-m.fbx",
+      "ext": "fbx",
+      "size": 109696,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-m.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-m.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-n.fbx",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-n.fbx",
+      "ext": "fbx",
+      "size": 129408,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Buildings/building-n.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Buildings",
+      "name": "building-n.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/Buildings/building-skyscraper-a.fbx",
@@ -524,13 +776,616 @@
       "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
+      "path": "Assets/Resources/RepoCity/Cars.meta",
+      "dir": "Assets/Resources/RepoCity",
+      "name": "Cars.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/Textures.meta",
+      "dir": "Assets/Resources/RepoCity/Cars",
+      "name": "Textures.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/Textures/colormap.png",
+      "dir": "Assets/Resources/RepoCity/Cars/Textures",
+      "name": "colormap.png",
+      "ext": "png",
+      "size": 12371,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/Textures/colormap.png.meta",
+      "dir": "Assets/Resources/RepoCity/Cars/Textures",
+      "name": "colormap.png.meta",
+      "ext": "meta",
+      "size": 3069,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/police.fbx",
+      "dir": "Assets/Resources/RepoCity/Cars",
+      "name": "police.fbx",
+      "ext": "fbx",
+      "size": 125744,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/police.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Cars",
+      "name": "police.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/sedan.fbx",
+      "dir": "Assets/Resources/RepoCity/Cars",
+      "name": "sedan.fbx",
+      "ext": "fbx",
+      "size": 114272,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/sedan.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Cars",
+      "name": "sedan.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/suv.fbx",
+      "dir": "Assets/Resources/RepoCity/Cars",
+      "name": "suv.fbx",
+      "ext": "fbx",
+      "size": 135104,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/suv.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Cars",
+      "name": "suv.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/taxi.fbx",
+      "dir": "Assets/Resources/RepoCity/Cars",
+      "name": "taxi.fbx",
+      "ext": "fbx",
+      "size": 115344,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/taxi.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Cars",
+      "name": "taxi.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/van.fbx",
+      "dir": "Assets/Resources/RepoCity/Cars",
+      "name": "van.fbx",
+      "ext": "fbx",
+      "size": 115488,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Cars/van.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Cars",
+      "name": "van.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters.meta",
+      "dir": "Assets/Resources/RepoCity",
+      "name": "Characters.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/Textures.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "Textures.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/Textures/colormap.png",
+      "dir": "Assets/Resources/RepoCity/Characters/Textures",
+      "name": "colormap.png",
+      "ext": "png",
+      "size": 8706,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/Textures/colormap.png.meta",
+      "dir": "Assets/Resources/RepoCity/Characters/Textures",
+      "name": "colormap.png.meta",
+      "ext": "meta",
+      "size": 3069,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-a.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-a.fbx",
+      "ext": "fbx",
+      "size": 730192,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-a.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-a.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-b.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-b.fbx",
+      "ext": "fbx",
+      "size": 723552,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-b.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-b.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-c.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-c.fbx",
+      "ext": "fbx",
+      "size": 723744,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-c.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-c.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-d.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-d.fbx",
+      "ext": "fbx",
+      "size": 727152,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-d.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-d.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-e.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-e.fbx",
+      "ext": "fbx",
+      "size": 722928,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-e.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-e.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-f.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-f.fbx",
+      "ext": "fbx",
+      "size": 724688,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-female-f.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-female-f.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-a.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-a.fbx",
+      "ext": "fbx",
+      "size": 719360,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-a.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-a.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-b.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-b.fbx",
+      "ext": "fbx",
+      "size": 719456,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-b.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-b.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-c.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-c.fbx",
+      "ext": "fbx",
+      "size": 727344,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-c.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-c.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-d.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-d.fbx",
+      "ext": "fbx",
+      "size": 721456,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-d.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-d.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-e.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-e.fbx",
+      "ext": "fbx",
+      "size": 718992,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-e.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-e.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-f.fbx",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-f.fbx",
+      "ext": "fbx",
+      "size": 720176,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Characters/character-male-f.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Characters",
+      "name": "character-male-f.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads.meta",
+      "dir": "Assets/Resources/RepoCity",
+      "name": "Roads.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads/Textures.meta",
+      "dir": "Assets/Resources/RepoCity/Roads",
+      "name": "Textures.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads/Textures/colormap.png",
+      "dir": "Assets/Resources/RepoCity/Roads/Textures",
+      "name": "colormap.png",
+      "ext": "png",
+      "size": 11428,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads/Textures/colormap.png.meta",
+      "dir": "Assets/Resources/RepoCity/Roads/Textures",
+      "name": "colormap.png.meta",
+      "ext": "meta",
+      "size": 3069,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads/road-bend.fbx",
+      "dir": "Assets/Resources/RepoCity/Roads",
+      "name": "road-bend.fbx",
+      "ext": "fbx",
+      "size": 29632,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads/road-bend.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Roads",
+      "name": "road-bend.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads/road-end.fbx",
+      "dir": "Assets/Resources/RepoCity/Roads",
+      "name": "road-end.fbx",
+      "ext": "fbx",
+      "size": 28528,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads/road-end.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Roads",
+      "name": "road-end.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads/road-side.fbx",
+      "dir": "Assets/Resources/RepoCity/Roads",
+      "name": "road-side.fbx",
+      "ext": "fbx",
+      "size": 25504,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads/road-side.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Roads",
+      "name": "road-side.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads/road-straight.fbx",
+      "dir": "Assets/Resources/RepoCity/Roads",
+      "name": "road-straight.fbx",
+      "ext": "fbx",
+      "size": 25328,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Roads/road-straight.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Roads",
+      "name": "road-straight.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation.meta",
+      "dir": "Assets/Resources/RepoCity",
+      "name": "Vegetation.meta",
+      "ext": "meta",
+      "size": 172,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/plant_bush.fbx",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "plant_bush.fbx",
+      "ext": "fbx",
+      "size": 16968,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/plant_bush.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "plant_bush.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/plant_bushLarge.fbx",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "plant_bushLarge.fbx",
+      "ext": "fbx",
+      "size": 23496,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/plant_bushLarge.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "plant_bushLarge.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/tree_cone.fbx",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "tree_cone.fbx",
+      "ext": "fbx",
+      "size": 34947,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/tree_cone.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "tree_cone.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/tree_default.fbx",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "tree_default.fbx",
+      "ext": "fbx",
+      "size": 30945,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/tree_default.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "tree_default.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/tree_detailed.fbx",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "tree_detailed.fbx",
+      "ext": "fbx",
+      "size": 82459,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/tree_detailed.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "tree_detailed.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/tree_fat.fbx",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "tree_fat.fbx",
+      "ext": "fbx",
+      "size": 19620,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Resources/RepoCity/Vegetation/tree_fat.fbx.meta",
+      "dir": "Assets/Resources/RepoCity/Vegetation",
+      "name": "tree_fat.fbx.meta",
+      "ext": "meta",
+      "size": 3063,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
       "path": "Assets/Resources/RepoCity/repo-data.json",
       "dir": "Assets/Resources/RepoCity",
       "name": "repo-data.json",
       "ext": "json",
-      "size": 7179,
-      "commits": 1,
-      "lastModified": "2026-10-08T20:20:43+02:00"
+      "size": 32374,
+      "commits": 2,
+      "lastModified": "2026-10-08T20:51:30+02:00"
     },
     {
       "path": "Assets/Resources/RepoCity/repo-data.json.meta",
@@ -610,8 +1465,8 @@
       "name": "CityBuilder.cs",
       "ext": "cs",
       "size": 9211,
-      "commits": 1,
-      "lastModified": "2026-10-08T20:20:43+02:00"
+      "commits": 2,
+      "lastModified": "2026-10-08T20:51:30+02:00"
     },
     {
       "path": "Assets/Scripts/RepoCity/CityBuilder.cs.meta",
@@ -646,8 +1501,8 @@
       "name": "HudPanel.cs",
       "ext": "cs",
       "size": 7438,
-      "commits": 1,
-      "lastModified": "2026-10-08T20:20:43+02:00"
+      "commits": 2,
+      "lastModified": "2026-10-08T20:51:30+02:00"
     },
     {
       "path": "Assets/Scripts/RepoCity/HudPanel.cs.meta",
@@ -664,8 +1519,8 @@
       "name": "Locomotion.cs",
       "ext": "cs",
       "size": 9688,
-      "commits": 1,
-      "lastModified": "2026-10-08T20:20:43+02:00"
+      "commits": 2,
+      "lastModified": "2026-10-08T20:51:30+02:00"
     },
     {
       "path": "Assets/Scripts/RepoCity/Locomotion.cs.meta",
@@ -675,6 +1530,42 @@
       "size": 59,
       "commits": 1,
       "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/NpcChat.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "NpcChat.cs",
+      "ext": "cs",
+      "size": 4247,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/NpcChat.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "NpcChat.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/NpcController.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "NpcController.cs",
+      "ext": "cs",
+      "size": 6592,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/NpcController.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "NpcController.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
     },
     {
       "path": "Assets/Scripts/RepoCity/OllamaNarrator.cs",
@@ -713,13 +1604,31 @@
       "lastModified": "2026-10-08T20:20:43+02:00"
     },
     {
+      "path": "Assets/Scripts/RepoCity/RoadNetwork.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "RoadNetwork.cs",
+      "ext": "cs",
+      "size": 5476,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/RoadNetwork.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "RoadNetwork.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
       "path": "Assets/Scripts/RepoCity/SceneBootstrapper.cs",
       "dir": "Assets/Scripts/RepoCity",
       "name": "SceneBootstrapper.cs",
       "ext": "cs",
       "size": 5195,
-      "commits": 2,
-      "lastModified": "2026-10-08T20:31:29+02:00"
+      "commits": 3,
+      "lastModified": "2026-10-08T20:51:30+02:00"
     },
     {
       "path": "Assets/Scripts/RepoCity/SceneBootstrapper.cs.meta",
@@ -729,6 +1638,42 @@
       "size": 59,
       "commits": 1,
       "lastModified": "2026-10-08T20:20:43+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/TrafficController.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "TrafficController.cs",
+      "ext": "cs",
+      "size": 2934,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/TrafficController.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "TrafficController.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/VegetationScatter.cs",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "VegetationScatter.cs",
+      "ext": "cs",
+      "size": 4769,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
+    },
+    {
+      "path": "Assets/Scripts/RepoCity/VegetationScatter.cs.meta",
+      "dir": "Assets/Scripts/RepoCity",
+      "name": "VegetationScatter.cs.meta",
+      "ext": "meta",
+      "size": 59,
+      "commits": 1,
+      "lastModified": "2026-10-08T20:51:30+02:00"
     },
     {
       "path": "Assets/XR 1.meta",
@@ -1078,8 +2023,8 @@
       "name": "repo-city-unity-project.slnx",
       "ext": "slnx",
       "size": 125,
-      "commits": 1,
-      "lastModified": "2026-10-08T20:20:43+02:00"
+      "commits": 2,
+      "lastModified": "2026-10-08T20:51:30+02:00"
     }
   ],
   "dirs": [
@@ -1090,6 +2035,13 @@
     "Assets/Resources",
     "Assets/Resources/RepoCity",
     "Assets/Resources/RepoCity/Buildings",
+    "Assets/Resources/RepoCity/Cars",
+    "Assets/Resources/RepoCity/Cars/Textures",
+    "Assets/Resources/RepoCity/Characters",
+    "Assets/Resources/RepoCity/Characters/Textures",
+    "Assets/Resources/RepoCity/Roads",
+    "Assets/Resources/RepoCity/Roads/Textures",
+    "Assets/Resources/RepoCity/Vegetation",
     "Assets/Scenes",
     "Assets/Scripts",
     "Assets/Scripts/RepoCity",

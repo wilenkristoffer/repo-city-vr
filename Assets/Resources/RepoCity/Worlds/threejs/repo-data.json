@@ -1,0 +1,187 @@
+{
+  "repoName": "repo-city",
+  "files": [
+    {
+      "path": ".gitignore",
+      "dir": "",
+      "name": ".gitignore",
+      "ext": "",
+      "size": 36,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:30:56+02:00"
+    },
+    {
+      "path": "LICENSE",
+      "dir": "",
+      "name": "LICENSE",
+      "ext": "",
+      "size": 1073,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:38:14+02:00"
+    },
+    {
+      "path": "README.md",
+      "dir": "",
+      "name": "README.md",
+      "ext": "md",
+      "size": 3607,
+      "commits": 2,
+      "lastModified": "2026-10-08T19:40:51+02:00"
+    },
+    {
+      "path": "index.html",
+      "dir": "",
+      "name": "index.html",
+      "ext": "html",
+      "size": 297,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:30:56+02:00"
+    },
+    {
+      "path": "package-lock.json",
+      "dir": "",
+      "name": "package-lock.json",
+      "ext": "json",
+      "size": 28050,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:30:56+02:00"
+    },
+    {
+      "path": "package.json",
+      "dir": "",
+      "name": "package.json",
+      "ext": "json",
+      "size": 482,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:30:56+02:00"
+    },
+    {
+      "path": "public/favicon.svg",
+      "dir": "public",
+      "name": "favicon.svg",
+      "ext": "svg",
+      "size": 9523,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:30:56+02:00"
+    },
+    {
+      "path": "public/repo-data.json",
+      "dir": "public",
+      "name": "repo-data.json",
+      "ext": "json",
+      "size": 4105,
+      "commits": 2,
+      "lastModified": "2026-10-08T19:40:51+02:00"
+    },
+    {
+      "path": "scripts/generate-repo-data.js",
+      "dir": "scripts",
+      "name": "generate-repo-data.js",
+      "ext": "js",
+      "size": 2847,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:38:14+02:00"
+    },
+    {
+      "path": "src/ai/narrator.js",
+      "dir": "src/ai",
+      "name": "narrator.js",
+      "ext": "js",
+      "size": 4118,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:40:51+02:00"
+    },
+    {
+      "path": "src/city/builder.js",
+      "dir": "src/city",
+      "name": "builder.js",
+      "ext": "js",
+      "size": 8707,
+      "commits": 2,
+      "lastModified": "2026-10-08T19:40:51+02:00"
+    },
+    {
+      "path": "src/city/layout.js",
+      "dir": "src/city",
+      "name": "layout.js",
+      "ext": "js",
+      "size": 4258,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:38:14+02:00"
+    },
+    {
+      "path": "src/city/palette.js",
+      "dir": "src/city",
+      "name": "palette.js",
+      "ext": "js",
+      "size": 1960,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:30:56+02:00"
+    },
+    {
+      "path": "src/core/locomotion.js",
+      "dir": "src/core",
+      "name": "locomotion.js",
+      "ext": "js",
+      "size": 7193,
+      "commits": 2,
+      "lastModified": "2026-10-08T19:40:51+02:00"
+    },
+    {
+      "path": "src/core/scene.js",
+      "dir": "src/core",
+      "name": "scene.js",
+      "ext": "js",
+      "size": 2666,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:38:14+02:00"
+    },
+    {
+      "path": "src/data/repoData.js",
+      "dir": "src/data",
+      "name": "repoData.js",
+      "ext": "js",
+      "size": 235,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:38:14+02:00"
+    },
+    {
+      "path": "src/main.js",
+      "dir": "src",
+      "name": "main.js",
+      "ext": "js",
+      "size": 1557,
+      "commits": 2,
+      "lastModified": "2026-10-08T19:40:51+02:00"
+    },
+    {
+      "path": "src/style.css",
+      "dir": "src",
+      "name": "style.css",
+      "ext": "css",
+      "size": 182,
+      "commits": 1,
+      "lastModified": "2026-10-08T19:30:56+02:00"
+    },
+    {
+      "path": "src/ui/hud.js",
+      "dir": "src/ui",
+      "name": "hud.js",
+      "ext": "js",
+      "size": 4717,
+      "commits": 2,
+      "lastModified": "2026-10-08T19:40:51+02:00"
+    }
+  ],
+  "dirs": [
+    "",
+    "public",
+    "scripts",
+    "src",
+    "src/ai",
+    "src/city",
+    "src/core",
+    "src/data",
+    "src/ui"
+  ]
+}
