@@ -83,6 +83,7 @@ public class CodeKiosk : MonoBehaviour {
 
         Button button = buttonGO.AddComponent<Button>();
         button.targetGraphic = buttonImage;
+        button.onClick.AddListener(() => AudioManager.PlayUi("ui_click"));
         button.onClick.AddListener(RunTests);
 
         Text buttonLabel = CreateText(buttonGO.transform, "Label", font, 14, FontStyle.Bold, TextAnchor.MiddleCenter);
@@ -124,6 +125,13 @@ public class CodeKiosk : MonoBehaviour {
 
         sb.Append("\n").Append(passed).Append("/").Append(tests.Count).Append(" tests passed");
         resultsText.text = sb.ToString();
+
+        if (passed == tests.Count && tests.Count > 0) {
+            AudioManager.PlayUi("challenge_complete");
+            AchievementTracker.NotifyChallengeCompleted(challenge.id);
+        } else {
+            AudioManager.PlayUi("test_fail", 0.6f);
+        }
     }
 
     static string Truncate(string s) {

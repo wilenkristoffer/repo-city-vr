@@ -27,6 +27,9 @@ namespace RepoCity
         float desktopPitch;
         bool dragging;
 
+        float footstepTimer;
+        const float FootstepInterval = 0.42f;
+
         void Start()
         {
             rigCamera = GetComponentInChildren<Camera>();
@@ -148,6 +151,7 @@ namespace RepoCity
                 newPos.z = lastValidLanding.z;
                 transform.position = newPos;
                 hasValidLanding = false;
+                AudioManager.PlayAt("teleport", newPos, 0.5f);
             }
 
             return false;
@@ -249,11 +253,26 @@ namespace RepoCity
 
             Vector3 move = transform.forward * vertical + transform.right * horizontal;
             move.y = 0f;
+            bool isMoving = move.sqrMagnitude > 0.0001f;
             if (move.sqrMagnitude > 1f)
             {
                 move.Normalize();
             }
             transform.position += move * moveSpeed * Time.deltaTime;
+
+            if (isMoving)
+            {
+                footstepTimer -= Time.deltaTime;
+                if (footstepTimer <= 0f)
+                {
+                    AudioManager.PlayAt("footstep_0" + Random.Range(0, 5), transform.position, 0.6f);
+                    footstepTimer = FootstepInterval;
+                }
+            }
+            else
+            {
+                footstepTimer = 0f;
+            }
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -266,8 +285,8 @@ namespace RepoCity
 
             if (dragging)
             {
-                float mouseX = Input.GetAxis("Mouse X") * lookSensitivity;
-                float mouseY = Input.GetAxis("Mouse Y") * lookSensitivity;
+                float mouseX = Input.GetAxis("Mouse X") * lookSensitivity * GameSettings.MouseSensitivity;
+                float mouseY = Input.GetAxis("Mouse Y") * lookSensitivity * GameSettings.MouseSensitivity;
 
                 transform.Rotate(Vector3.up, mouseX, Space.World);
 

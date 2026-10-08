@@ -11,11 +11,17 @@ namespace RepoCity {
     public class WorldBootstrapper : MonoBehaviour {
 
         int inspectToken = 0;
+        List<WorldIslandResult> islands;
+        Transform rigTransform;
+        string currentIslandLabel;
 
         void Start() {
+            GameSettings.EnsureLoaded();
+            AudioManager.EnsureInitialized();
             WorldLighting.Setup();
+            gameObject.AddComponent<DayNightCycle>();
 
-            List<WorldIslandResult> islands = WorldBuilder.BuildAll(transform);
+            islands = WorldBuilder.BuildAll(transform);
             if (islands.Count == 0) {
                 Debug.LogError("WorldBootstrapper: WorldBuilder returned no islands - check repo-data.json resources.");
                 return;
@@ -62,6 +68,8 @@ namespace RepoCity {
             Camera playerCam = rig.GetComponentInChildren<Camera>();
 
             Locomotion locomotion = rig.AddComponent<Locomotion>();
+            rigTransform = rig.transform;
+            currentIslandLabel = home.config.label;
 
             GameObject hudGO = new GameObject("HUD");
             hudGO.transform.SetParent(transform, false);
@@ -81,10 +89,13 @@ namespace RepoCity {
                     return;
                 }
 
+                AudioManager.PlayUi("ui_click", 0.5f);
+                AchievementTracker.NotifyFileInspected(file.path);
                 hudPanel.ShowNarration(file, "Thinking...");
                 StartCoroutine(OllamaNarrator.GetNarration(file, text => {
                     if (token == inspectToken) {
                         hudPanel.ShowNarration(file, text);
+                        AudioManager.PlayUi("npc_blip", 0.4f);
                     }
                 }));
             };
@@ -93,10 +104,13 @@ namespace RepoCity {
                 inspectToken++;
                 int token = inspectToken;
 
+                AudioManager.PlayUi("ui_click", 0.5f);
+                AchievementTracker.NotifyNpcTalkedTo(npc.personaName);
                 hudPanel.ShowNpcLine(npc.personaName, npc.personaJob, "...");
                 StartCoroutine(NpcChat.GetLine(npc, line => {
                     if (token == inspectToken) {
                         hudPanel.ShowNpcLine(npc.personaName, npc.personaJob, line);
+                        AudioManager.PlayUi("npc_blip", 0.4f);
                     }
                 }));
             };
@@ -113,6 +127,25 @@ namespace RepoCity {
             // couldn't be given a raycast camera at Initialize() time - assign it now.
             foreach (CodeKiosk kiosk in arcade.GetComponentsInChildren<CodeKiosk>()) {
                 if (kiosk.canvas != null) kiosk.canvas.worldCamera = playerCam;
+            }
+        }
+
+        void Update() {
+            if (islands == null || rigTransform == null) return;
+
+            float x = rigTransform.position.x;
+            for (int i = 0; i < islands.Count; i++) {
+                WorldIslandResult island = islands[i];
+                float localX = x - island.worldCenter.x;
+                // Roads/sidewalks extend ~5.5 units past bounds, so pad the crossing test a little
+                // past that so the notification fires once the player is clearly inside the island.
+                if (localX >= island.layout.bounds.minX - 8f && localX <= island.layout.bounds.maxX + 8f) {
+                    if (island.config.label != currentIslandLabel) {
+                        currentIslandLabel = island.config.label;
+                        AchievementTracker.NotifyIslandEntered(island.config.label);
+                    }
+                    break;
+                }
             }
         }
 
