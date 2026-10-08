@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR;
 
 namespace RepoCity {
 
@@ -21,10 +22,25 @@ namespace RepoCity {
             WorldLighting.Setup();
             gameObject.AddComponent<DayNightCycle>();
 
-            islands = WorldBuilder.BuildAll(transform);
+            try {
+                islands = WorldBuilder.BuildAll(transform);
+            } catch (System.Exception e) {
+                Debug.LogError("WorldBootstrapper: WorldBuilder.BuildAll threw - " + e);
+                islands = new List<WorldIslandResult>();
+            }
+
             if (islands.Count == 0) {
-                Debug.LogError("WorldBootstrapper: WorldBuilder returned no islands - check repo-data.json resources.");
+                Debug.LogError("WorldBootstrapper: no islands built - check repo-data.json resources. Creating a fallback camera so the screen isn't blank.");
+                GameObject fallbackCamGO = new GameObject("Main Camera");
+                fallbackCamGO.tag = "MainCamera";
+                fallbackCamGO.AddComponent<Camera>();
+                fallbackCamGO.transform.SetParent(transform, false);
+                fallbackCamGO.transform.position = new Vector3(0f, 1.6f, 0f);
                 return;
+            }
+
+            foreach (WorldIslandResult island in islands) {
+                Landmarks.Highlight(island.root);
             }
 
             WorldIslandResult home = islands[0];
@@ -70,6 +86,30 @@ namespace RepoCity {
             Locomotion locomotion = rig.AddComponent<Locomotion>();
             rigTransform = rig.transform;
             currentIslandLabel = home.config.label;
+
+            rig.AddComponent<PauseMenu>();
+
+            GameObject leftHandPointerGO = new GameObject("LeftHandPointer");
+            leftHandPointerGO.transform.SetParent(rig.transform, false);
+            leftHandPointerGO.AddComponent<VrUiPointer>().hand = XRNode.LeftHand;
+
+            GameObject rightHandPointerGO = new GameObject("RightHandPointer");
+            rightHandPointerGO.transform.SetParent(rig.transform, false);
+            rightHandPointerGO.AddComponent<VrUiPointer>().hand = XRNode.RightHand;
+
+            if (playerCam != null) {
+                GameObject minimapGO = new GameObject("MiniMap");
+                minimapGO.transform.SetParent(playerCam.transform, false);
+                minimapGO.transform.localPosition = new Vector3(0.35f, 0.22f, 0.6f);
+                minimapGO.transform.localRotation = Quaternion.identity;
+                minimapGO.AddComponent<MiniMapUI>().Initialize(islands, rigTransform);
+
+                GameObject toastGO = new GameObject("AchievementToast");
+                toastGO.transform.SetParent(playerCam.transform, false);
+                toastGO.transform.localPosition = new Vector3(0f, -0.25f, 0.6f);
+                toastGO.transform.localRotation = Quaternion.identity;
+                toastGO.AddComponent<AchievementToastUI>();
+            }
 
             GameObject hudGO = new GameObject("HUD");
             hudGO.transform.SetParent(transform, false);

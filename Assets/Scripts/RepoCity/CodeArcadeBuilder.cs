@@ -50,8 +50,10 @@ public static class CodeArcadeBuilder {
         textMesh.characterSize = 0.4f;
         textMesh.color = Color.white;
 
-        // Player approaches from -Z, so aim the sign's forward at a point further toward -Z.
-        signGO.transform.LookAt(signPos + Vector3.back * 10f);
+        // The arcade sits west of the home island at the same Z, so the player's final approach
+        // is along -X (not -Z) - aim the sign's forward at a point further toward +X so its
+        // readable face ends up pointing back at whoever is arriving from the east.
+        signGO.transform.LookAt(signPos + Vector3.right * 10f);
         signGO.transform.Rotate(0f, 180f, 0f); // TextMesh's face is on the opposite side of its forward axis
     }
 
@@ -67,8 +69,8 @@ public static class CodeArcadeBuilder {
         Vector3 mountPos = new Vector3(basePos.x, 1.5f, basePos.z + 0.6f);
         mount.transform.localPosition = mountPos;
 
-        // Same approach-direction assumption as the sign: readable from -Z.
-        mount.transform.LookAt(mountPos + Vector3.back * 10f);
+        // Same approach-direction assumption as the sign: readable from the east (+X).
+        mount.transform.LookAt(mountPos + Vector3.right * 10f);
         mount.transform.Rotate(0f, 180f, 0f);
 
         CodeKiosk kiosk = mount.AddComponent<CodeKiosk>();

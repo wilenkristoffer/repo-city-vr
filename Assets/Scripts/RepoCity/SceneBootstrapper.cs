@@ -10,6 +10,7 @@ namespace RepoCity {
         const int NpcCount = 10;
 
         int inspectToken = 0;
+        Coroutine activeRequestCoroutine;
 
         void Start() {
             WorldLighting.Setup();
@@ -26,6 +27,15 @@ namespace RepoCity {
                 Debug.LogError("SceneBootstrapper: failed to load repo data / build city. " +
                     "Did you run scripts/generate-repo-data.js to generate Assets/Resources/RepoCity/repo-data.json? " +
                     e);
+
+                // Nothing renders past this point in the normal flow (camera setup happens
+                // later below), so without a fallback the player is left on a black screen
+                // with zero in-headset indication anything went wrong.
+                if (Camera.main == null) {
+                    GameObject fallbackCamGO = new GameObject("Main Camera");
+                    fallbackCamGO.tag = "MainCamera";
+                    fallbackCamGO.AddComponent<Camera>();
+                }
                 return;
             }
 
@@ -95,7 +105,10 @@ namespace RepoCity {
                 }
 
                 hudPanel.ShowNarration(file, "Thinking...");
-                StartCoroutine(OllamaNarrator.GetNarration(file, text => {
+                if (activeRequestCoroutine != null) {
+                    StopCoroutine(activeRequestCoroutine);
+                }
+                activeRequestCoroutine = StartCoroutine(OllamaNarrator.GetNarration(file, text => {
                     if (token == inspectToken) {
                         hudPanel.ShowNarration(file, text);
                     }
@@ -110,7 +123,10 @@ namespace RepoCity {
                 int token = inspectToken;
 
                 hudPanel.ShowNpcLine(npc.personaName, npc.personaJob, "...");
-                StartCoroutine(NpcChat.GetLine(npc, line => {
+                if (activeRequestCoroutine != null) {
+                    StopCoroutine(activeRequestCoroutine);
+                }
+                activeRequestCoroutine = StartCoroutine(NpcChat.GetLine(npc, line => {
                     if (token == inspectToken) {
                         hudPanel.ShowNpcLine(npc.personaName, npc.personaJob, line);
                     }

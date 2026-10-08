@@ -63,12 +63,22 @@ public static class CityBuilder {
             BuildOneBuilding(building, buildingsRoot.transform, prefabCache, actualHeights);
         }
 
+        Dictionary<string, float> districtMaxHeight = new Dictionary<string, float>();
+        foreach (CityBuilding building in layout.buildings) {
+            float h;
+            if (!actualHeights.TryGetValue(building.id, out h)) continue;
+            float current;
+            if (!districtMaxHeight.TryGetValue(building.district, out current) || h > current) {
+                districtMaxHeight[building.district] = h;
+            }
+        }
+
         BuildGround(layout.bounds, root.transform);
 
         GameObject labelsRoot = new GameObject("DistrictLabels");
         labelsRoot.transform.SetParent(root.transform, false);
         foreach (CityDistrict district in layout.districts) {
-            BuildDistrictLabel(district, layout.buildings, actualHeights, labelsRoot.transform);
+            BuildDistrictLabel(district, districtMaxHeight, labelsRoot.transform);
         }
 
         return root;
@@ -130,7 +140,11 @@ public static class CityBuilder {
         actualHeights[building.id] = naturalHeight * scaleY;
 
         if (renderer != null) {
-            renderer.material.color = JitteredColor(BuildingPalette.CategoryForExt(building.file.ext).color, rand);
+            Color jittered = JitteredColor(BuildingPalette.CategoryForExt(building.file.ext).color, rand);
+            Material[] materials = renderer.materials; // per-instance copies; mutating .color here is enough, no reassignment needed
+            for (int i = 0; i < materials.Length; i++) {
+                materials[i].color = jittered;
+            }
         }
 
         if (instance.GetComponentInChildren<Collider>() == null && renderer != null) {
@@ -166,14 +180,9 @@ public static class CityBuilder {
         groundRenderer.material.color = new Color(0.12f, 0.12f, 0.13f);
     }
 
-    static void BuildDistrictLabel(CityDistrict district, List<CityBuilding> buildings, Dictionary<string, float> actualHeights, Transform parent) {
-        float tallest = 0f;
-        for (int i = 0; i < buildings.Count; i++) {
-            CityBuilding b = buildings[i];
-            if (b.district != district.id) continue;
-            float h;
-            if (actualHeights.TryGetValue(b.id, out h) && h > tallest) tallest = h;
-        }
+    static void BuildDistrictLabel(CityDistrict district, Dictionary<string, float> districtMaxHeight, Transform parent) {
+        float tallest;
+        districtMaxHeight.TryGetValue(district.id, out tallest); // 0f if district has no buildings, same as before
 
         float labelY = tallest + 4f;
 

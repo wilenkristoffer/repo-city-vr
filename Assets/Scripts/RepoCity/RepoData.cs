@@ -41,7 +41,25 @@ namespace RepoCity
                     "Run scripts/generate-repo-data.js to generate it before building/playing the scene.");
             }
 
-            RepoData data = JsonUtility.FromJson<RepoData>(asset.text);
+            RepoData data;
+            try
+            {
+                data = JsonUtility.FromJson<RepoData>(asset.text);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(
+                    "RepoCity: Resources/" + resourcePath + ".json is present but could not be parsed. " +
+                    "It may be empty, truncated, or malformed (e.g. cut off mid-write by an interrupted generator run). " +
+                    "Run scripts/generate-repo-data.js to regenerate it.", e);
+            }
+            if (data == null)
+            {
+                throw new Exception(
+                    "RepoCity: Resources/" + resourcePath + ".json is present but could not be parsed. " +
+                    "It may be empty, truncated, or malformed (e.g. cut off mid-write by an interrupted generator run). " +
+                    "Run scripts/generate-repo-data.js to regenerate it.");
+            }
             if (data.files == null) data.files = new List<FileEntry>();
             if (data.dirs == null) data.dirs = new List<string>();
             return data;

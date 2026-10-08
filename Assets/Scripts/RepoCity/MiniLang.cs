@@ -297,12 +297,29 @@ namespace RepoCity
 
     class MiniLangParser
     {
+        const int MaxParseDepth = 200;
+
         readonly List<MiniLangToken> tokens;
         int pos;
+        int depth;
 
         public MiniLangParser(List<MiniLangToken> tokens)
         {
             this.tokens = tokens;
+        }
+
+        // Guards every recursive-descent entry point against unbounded recursion
+        // (deeply nested parens, unary chains, blocks, etc.) that would otherwise
+        // overflow the C# call stack with an uncatchable StackOverflowException.
+        void EnterRule(int line)
+        {
+            depth++;
+            if (depth > MaxParseDepth) throw new MiniLangError("expression/statement nested too deeply", line);
+        }
+
+        void ExitRule()
+        {
+            depth--;
         }
 
         public List<MiniLangStmt> ParseProgram()
@@ -334,19 +351,30 @@ namespace RepoCity
         MiniLangStmt Statement()
         {
             int line = Peek().line;
-            if (Match(MiniLangTokType.If)) return IfStatement(line);
-            if (Match(MiniLangTokType.While)) return WhileStatement(line);
-            if (Match(MiniLangTokType.Print)) return PrintStatement(line);
-            if (Match(MiniLangTokType.LBrace)) return new BlockStmt { statements = Block(), line = line };
-            return ExpressionStatement(line);
+            EnterRule(line);
+            try
+            {
+                if (Match(MiniLangTokType.If)) return IfStatement(line);
+                if (Match(MiniLangTokType.While)) return WhileStatement(line);
+                if (Match(MiniLangTokType.Print)) return PrintStatement(line);
+                if (Match(MiniLangTokType.LBrace)) return new BlockStmt { statements = Block(), line = line };
+                return ExpressionStatement(line);
+            }
+            finally { ExitRule(); }
         }
 
         List<MiniLangStmt> Block()
         {
-            var statements = new List<MiniLangStmt>();
-            while (!Check(MiniLangTokType.RBrace) && !IsAtEnd()) statements.Add(Statement());
-            Consume(MiniLangTokType.RBrace, "expected '}' to close block");
-            return statements;
+            int line = Peek().line;
+            EnterRule(line);
+            try
+            {
+                var statements = new List<MiniLangStmt>();
+                while (!Check(MiniLangTokType.RBrace) && !IsAtEnd()) statements.Add(Statement());
+                Consume(MiniLangTokType.RBrace, "expected '}' to close block");
+                return statements;
+            }
+            finally { ExitRule(); }
         }
 
         MiniLangStmt IfStatement(int line)
@@ -387,135 +415,182 @@ namespace RepoCity
 
         MiniLangExpr Expression()
         {
-            return Assignment();
+            EnterRule(Peek().line);
+            try { return Assignment(); }
+            finally { ExitRule(); }
         }
 
         MiniLangExpr Assignment()
         {
-            MiniLangExpr expr = Or();
-            if (Match(MiniLangTokType.Assign))
+            EnterRule(Peek().line);
+            try
             {
-                MiniLangToken eq = Previous();
-                MiniLangExpr value = Assignment();
-                var ve = expr as VariableExpr;
-                if (ve == null) throw new MiniLangError("invalid assignment target", eq.line);
-                return new AssignExpr { name = ve.name, value = value, line = eq.line };
+                MiniLangExpr expr = Or();
+                if (Match(MiniLangTokType.Assign))
+                {
+                    MiniLangToken eq = Previous();
+                    MiniLangExpr value = Assignment();
+                    var ve = expr as VariableExpr;
+                    if (ve == null) throw new MiniLangError("invalid assignment target", eq.line);
+                    return new AssignExpr { name = ve.name, value = value, line = eq.line };
+                }
+                return expr;
             }
-            return expr;
+            finally { ExitRule(); }
         }
 
         MiniLangExpr Or()
         {
-            MiniLangExpr expr = And();
-            while (Match(MiniLangTokType.OrOr))
+            EnterRule(Peek().line);
+            try
             {
-                MiniLangToken op = Previous();
-                MiniLangExpr right = And();
-                expr = new LogicalExpr { op = "||", left = expr, right = right, line = op.line };
+                MiniLangExpr expr = And();
+                while (Match(MiniLangTokType.OrOr))
+                {
+                    MiniLangToken op = Previous();
+                    MiniLangExpr right = And();
+                    expr = new LogicalExpr { op = "||", left = expr, right = right, line = op.line };
+                }
+                return expr;
             }
-            return expr;
+            finally { ExitRule(); }
         }
 
         MiniLangExpr And()
         {
-            MiniLangExpr expr = Equality();
-            while (Match(MiniLangTokType.AndAnd))
+            EnterRule(Peek().line);
+            try
             {
-                MiniLangToken op = Previous();
-                MiniLangExpr right = Equality();
-                expr = new LogicalExpr { op = "&&", left = expr, right = right, line = op.line };
+                MiniLangExpr expr = Equality();
+                while (Match(MiniLangTokType.AndAnd))
+                {
+                    MiniLangToken op = Previous();
+                    MiniLangExpr right = Equality();
+                    expr = new LogicalExpr { op = "&&", left = expr, right = right, line = op.line };
+                }
+                return expr;
             }
-            return expr;
+            finally { ExitRule(); }
         }
 
         MiniLangExpr Equality()
         {
-            MiniLangExpr expr = Comparison();
-            while (Check(MiniLangTokType.EqEq) || Check(MiniLangTokType.NotEq))
+            EnterRule(Peek().line);
+            try
             {
-                MiniLangToken op = Advance();
-                MiniLangExpr right = Comparison();
-                expr = new BinaryExpr { op = op.type == MiniLangTokType.EqEq ? "==" : "!=", left = expr, right = right, line = op.line };
+                MiniLangExpr expr = Comparison();
+                while (Check(MiniLangTokType.EqEq) || Check(MiniLangTokType.NotEq))
+                {
+                    MiniLangToken op = Advance();
+                    MiniLangExpr right = Comparison();
+                    expr = new BinaryExpr { op = op.type == MiniLangTokType.EqEq ? "==" : "!=", left = expr, right = right, line = op.line };
+                }
+                return expr;
             }
-            return expr;
+            finally { ExitRule(); }
         }
 
         MiniLangExpr Comparison()
         {
-            MiniLangExpr expr = Term();
-            while (Check(MiniLangTokType.Less) || Check(MiniLangTokType.Greater) || Check(MiniLangTokType.LessEq) || Check(MiniLangTokType.GreaterEq))
+            EnterRule(Peek().line);
+            try
             {
-                MiniLangToken op = Advance();
-                MiniLangExpr right = Term();
-                expr = new BinaryExpr { op = OpText(op.type), left = expr, right = right, line = op.line };
+                MiniLangExpr expr = Term();
+                while (Check(MiniLangTokType.Less) || Check(MiniLangTokType.Greater) || Check(MiniLangTokType.LessEq) || Check(MiniLangTokType.GreaterEq))
+                {
+                    MiniLangToken op = Advance();
+                    MiniLangExpr right = Term();
+                    expr = new BinaryExpr { op = OpText(op.type), left = expr, right = right, line = op.line };
+                }
+                return expr;
             }
-            return expr;
+            finally { ExitRule(); }
         }
 
         MiniLangExpr Term()
         {
-            MiniLangExpr expr = Factor();
-            while (Check(MiniLangTokType.Plus) || Check(MiniLangTokType.Minus))
+            EnterRule(Peek().line);
+            try
             {
-                MiniLangToken op = Advance();
-                MiniLangExpr right = Factor();
-                expr = new BinaryExpr { op = op.type == MiniLangTokType.Plus ? "+" : "-", left = expr, right = right, line = op.line };
+                MiniLangExpr expr = Factor();
+                while (Check(MiniLangTokType.Plus) || Check(MiniLangTokType.Minus))
+                {
+                    MiniLangToken op = Advance();
+                    MiniLangExpr right = Factor();
+                    expr = new BinaryExpr { op = op.type == MiniLangTokType.Plus ? "+" : "-", left = expr, right = right, line = op.line };
+                }
+                return expr;
             }
-            return expr;
+            finally { ExitRule(); }
         }
 
         MiniLangExpr Factor()
         {
-            MiniLangExpr expr = Unary();
-            while (Check(MiniLangTokType.Star) || Check(MiniLangTokType.Slash) || Check(MiniLangTokType.Percent))
+            EnterRule(Peek().line);
+            try
             {
-                MiniLangToken op = Advance();
-                MiniLangExpr right = Unary();
-                expr = new BinaryExpr { op = OpText(op.type), left = expr, right = right, line = op.line };
+                MiniLangExpr expr = Unary();
+                while (Check(MiniLangTokType.Star) || Check(MiniLangTokType.Slash) || Check(MiniLangTokType.Percent))
+                {
+                    MiniLangToken op = Advance();
+                    MiniLangExpr right = Unary();
+                    expr = new BinaryExpr { op = OpText(op.type), left = expr, right = right, line = op.line };
+                }
+                return expr;
             }
-            return expr;
+            finally { ExitRule(); }
         }
 
         MiniLangExpr Unary()
         {
-            if (Check(MiniLangTokType.Bang) || Check(MiniLangTokType.Minus))
+            EnterRule(Peek().line);
+            try
             {
-                MiniLangToken op = Advance();
-                MiniLangExpr right = Unary();
-                return new UnaryExpr { op = op.type == MiniLangTokType.Bang ? "!" : "-", right = right, line = op.line };
+                if (Check(MiniLangTokType.Bang) || Check(MiniLangTokType.Minus))
+                {
+                    MiniLangToken op = Advance();
+                    MiniLangExpr right = Unary();
+                    return new UnaryExpr { op = op.type == MiniLangTokType.Bang ? "!" : "-", right = right, line = op.line };
+                }
+                return Primary();
             }
-            return Primary();
+            finally { ExitRule(); }
         }
 
         MiniLangExpr Primary()
         {
-            MiniLangToken t = Peek();
-            if (Match(MiniLangTokType.Number)) return new NumberExpr { value = Previous().numberValue, line = t.line };
-            if (Match(MiniLangTokType.String)) return new StringExpr { value = Previous().stringValue, line = t.line };
-            if (Match(MiniLangTokType.True)) return new BoolExpr { value = true, line = t.line };
-            if (Match(MiniLangTokType.False)) return new BoolExpr { value = false, line = t.line };
-            if (Match(MiniLangTokType.LParen))
+            EnterRule(Peek().line);
+            try
             {
-                MiniLangExpr expr = Expression();
-                Consume(MiniLangTokType.RParen, "expected ')' after expression");
-                return expr;
-            }
-            if (Match(MiniLangTokType.Identifier))
-            {
-                string name = Previous().text;
+                MiniLangToken t = Peek();
+                if (Match(MiniLangTokType.Number)) return new NumberExpr { value = Previous().numberValue, line = t.line };
+                if (Match(MiniLangTokType.String)) return new StringExpr { value = Previous().stringValue, line = t.line };
+                if (Match(MiniLangTokType.True)) return new BoolExpr { value = true, line = t.line };
+                if (Match(MiniLangTokType.False)) return new BoolExpr { value = false, line = t.line };
                 if (Match(MiniLangTokType.LParen))
                 {
-                    var args = new List<MiniLangExpr>();
-                    if (!Check(MiniLangTokType.RParen))
-                    {
-                        do { args.Add(Expression()); } while (Match(MiniLangTokType.Comma));
-                    }
-                    Consume(MiniLangTokType.RParen, "expected ')' after arguments");
-                    return new CallExpr { name = name, args = args, line = t.line };
+                    MiniLangExpr expr = Expression();
+                    Consume(MiniLangTokType.RParen, "expected ')' after expression");
+                    return expr;
                 }
-                return new VariableExpr { name = name, line = t.line };
+                if (Match(MiniLangTokType.Identifier))
+                {
+                    string name = Previous().text;
+                    if (Match(MiniLangTokType.LParen))
+                    {
+                        var args = new List<MiniLangExpr>();
+                        if (!Check(MiniLangTokType.RParen))
+                        {
+                            do { args.Add(Expression()); } while (Match(MiniLangTokType.Comma));
+                        }
+                        Consume(MiniLangTokType.RParen, "expected ')' after arguments");
+                        return new CallExpr { name = name, args = args, line = t.line };
+                    }
+                    return new VariableExpr { name = name, line = t.line };
+                }
+                throw new MiniLangError("expected expression", t.line);
             }
-            throw new MiniLangError("expected expression", t.line);
+            finally { ExitRule(); }
         }
 
         static string OpText(MiniLangTokType type)
@@ -536,10 +611,15 @@ namespace RepoCity
 
     class MiniLangInterpreter
     {
+        const int MaxEvalDepth = 200;
+        const long MaxStringCost = 2000000;
+
         readonly Dictionary<string, object> vars = new Dictionary<string, object>();
         public List<string> stdout = new List<string>();
         readonly int maxSteps;
         int steps;
+        int depth;
+        long stringCost;
 
         public MiniLangInterpreter(int maxSteps)
         {
@@ -551,100 +631,117 @@ namespace RepoCity
             foreach (MiniLangStmt s in statements) Execute(s);
         }
 
+        // Guards every recursive branch (nested blocks/if/while bodies) against
+        // unbounded recursion that would otherwise overflow the C# call stack
+        // with an uncatchable StackOverflowException.
         void Execute(MiniLangStmt s)
         {
-            steps++;
-            if (steps > maxSteps) throw new MiniLangError("step limit exceeded (possible infinite loop)", s.line);
-
-            var exprStmt = s as ExprStmt;
-            if (exprStmt != null) { Evaluate(exprStmt.expr); return; }
-
-            var printStmt = s as PrintStmt;
-            if (printStmt != null) { stdout.Add(Stringify(Evaluate(printStmt.expr))); return; }
-
-            var blockStmt = s as BlockStmt;
-            if (blockStmt != null) { foreach (MiniLangStmt inner in blockStmt.statements) Execute(inner); return; }
-
-            var ifStmt = s as IfStmt;
-            if (ifStmt != null)
+            depth++;
+            try
             {
-                if (ToBool(Evaluate(ifStmt.condition), ifStmt.line)) Execute(ifStmt.thenBranch);
-                else if (ifStmt.elseBranch != null) Execute(ifStmt.elseBranch);
-                return;
-            }
+                if (depth > MaxEvalDepth) throw new MiniLangError("statement nested too deeply", s.line);
 
-            var whileStmt = s as WhileStmt;
-            if (whileStmt != null)
-            {
-                while (ToBool(Evaluate(whileStmt.condition), whileStmt.line))
+                steps++;
+                if (steps > maxSteps) throw new MiniLangError("step limit exceeded (possible infinite loop)", s.line);
+
+                var exprStmt = s as ExprStmt;
+                if (exprStmt != null) { Evaluate(exprStmt.expr); return; }
+
+                var printStmt = s as PrintStmt;
+                if (printStmt != null) { stdout.Add(Stringify(Evaluate(printStmt.expr))); return; }
+
+                var blockStmt = s as BlockStmt;
+                if (blockStmt != null) { foreach (MiniLangStmt inner in blockStmt.statements) Execute(inner); return; }
+
+                var ifStmt = s as IfStmt;
+                if (ifStmt != null)
                 {
-                    Execute(whileStmt.body);
+                    if (ToBool(Evaluate(ifStmt.condition), ifStmt.line)) Execute(ifStmt.thenBranch);
+                    else if (ifStmt.elseBranch != null) Execute(ifStmt.elseBranch);
+                    return;
                 }
-                return;
-            }
 
-            throw new MiniLangError("unknown statement", s.line);
+                var whileStmt = s as WhileStmt;
+                if (whileStmt != null)
+                {
+                    while (ToBool(Evaluate(whileStmt.condition), whileStmt.line))
+                    {
+                        Execute(whileStmt.body);
+                    }
+                    return;
+                }
+
+                throw new MiniLangError("unknown statement", s.line);
+            }
+            finally { depth--; }
         }
 
         object Evaluate(MiniLangExpr e)
         {
-            var numberExpr = e as NumberExpr;
-            if (numberExpr != null) return numberExpr.value;
-
-            var stringExpr = e as StringExpr;
-            if (stringExpr != null) return stringExpr.value;
-
-            var boolExpr = e as BoolExpr;
-            if (boolExpr != null) return boolExpr.value;
-
-            var variableExpr = e as VariableExpr;
-            if (variableExpr != null)
+            depth++;
+            try
             {
-                object val;
-                if (vars.TryGetValue(variableExpr.name, out val)) return val;
-                throw new MiniLangError("undefined variable '" + variableExpr.name + "'", variableExpr.line);
-            }
+                if (depth > MaxEvalDepth) throw new MiniLangError("expression nested too deeply", e.line);
 
-            var assignExpr = e as AssignExpr;
-            if (assignExpr != null)
-            {
-                object val = Evaluate(assignExpr.value);
-                vars[assignExpr.name] = val;
-                return val;
-            }
+                var numberExpr = e as NumberExpr;
+                if (numberExpr != null) return numberExpr.value;
 
-            var unaryExpr = e as UnaryExpr;
-            if (unaryExpr != null)
-            {
-                object r = Evaluate(unaryExpr.right);
-                if (unaryExpr.op == "-") return -ToNumber(r, unaryExpr.line);
-                if (unaryExpr.op == "!") return !ToBool(r, unaryExpr.line);
-                throw new MiniLangError("unknown unary operator '" + unaryExpr.op + "'", unaryExpr.line);
-            }
+                var stringExpr = e as StringExpr;
+                if (stringExpr != null) return stringExpr.value;
 
-            var logicalExpr = e as LogicalExpr;
-            if (logicalExpr != null)
-            {
-                bool left = ToBool(Evaluate(logicalExpr.left), logicalExpr.line);
-                if (logicalExpr.op == "&&")
+                var boolExpr = e as BoolExpr;
+                if (boolExpr != null) return boolExpr.value;
+
+                var variableExpr = e as VariableExpr;
+                if (variableExpr != null)
                 {
-                    if (!left) return false;
-                    return ToBool(Evaluate(logicalExpr.right), logicalExpr.line);
+                    object val;
+                    if (vars.TryGetValue(variableExpr.name, out val)) return val;
+                    throw new MiniLangError("undefined variable '" + variableExpr.name + "'", variableExpr.line);
                 }
-                else
+
+                var assignExpr = e as AssignExpr;
+                if (assignExpr != null)
                 {
-                    if (left) return true;
-                    return ToBool(Evaluate(logicalExpr.right), logicalExpr.line);
+                    object val = Evaluate(assignExpr.value);
+                    vars[assignExpr.name] = val;
+                    return val;
                 }
+
+                var unaryExpr = e as UnaryExpr;
+                if (unaryExpr != null)
+                {
+                    object r = Evaluate(unaryExpr.right);
+                    if (unaryExpr.op == "-") return -ToNumber(r, unaryExpr.line);
+                    if (unaryExpr.op == "!") return !ToBool(r, unaryExpr.line);
+                    throw new MiniLangError("unknown unary operator '" + unaryExpr.op + "'", unaryExpr.line);
+                }
+
+                var logicalExpr = e as LogicalExpr;
+                if (logicalExpr != null)
+                {
+                    bool left = ToBool(Evaluate(logicalExpr.left), logicalExpr.line);
+                    if (logicalExpr.op == "&&")
+                    {
+                        if (!left) return false;
+                        return ToBool(Evaluate(logicalExpr.right), logicalExpr.line);
+                    }
+                    else
+                    {
+                        if (left) return true;
+                        return ToBool(Evaluate(logicalExpr.right), logicalExpr.line);
+                    }
+                }
+
+                var binaryExpr = e as BinaryExpr;
+                if (binaryExpr != null) return EvalBinary(binaryExpr);
+
+                var callExpr = e as CallExpr;
+                if (callExpr != null) return EvalCall(callExpr);
+
+                throw new MiniLangError("unknown expression", e.line);
             }
-
-            var binaryExpr = e as BinaryExpr;
-            if (binaryExpr != null) return EvalBinary(binaryExpr);
-
-            var callExpr = e as CallExpr;
-            if (callExpr != null) return EvalCall(callExpr);
-
-            throw new MiniLangError("unknown expression", e.line);
+            finally { depth--; }
         }
 
         object EvalBinary(BinaryExpr b)
@@ -654,7 +751,13 @@ namespace RepoCity
             switch (b.op)
             {
                 case "+":
-                    if (l is string || r is string) return Stringify(l) + Stringify(r);
+                    if (l is string || r is string)
+                    {
+                        string concat = Stringify(l) + Stringify(r);
+                        stringCost += concat.Length;
+                        if (stringCost > MaxStringCost) throw new MiniLangError("output too large", b.line);
+                        return concat;
+                    }
                     return ToNumber(l, b.line) + ToNumber(r, b.line);
                 case "-": return ToNumber(l, b.line) - ToNumber(r, b.line);
                 case "*": return ToNumber(l, b.line) * ToNumber(r, b.line);

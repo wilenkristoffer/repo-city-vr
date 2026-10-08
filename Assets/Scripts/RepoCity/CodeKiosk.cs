@@ -107,7 +107,8 @@ public class CodeKiosk : MonoBehaviour {
             MiniLangResult result = MiniLang.Run(source);
 
             if (!result.success) {
-                sb.Append("Test ").Append(i + 1).Append(": FAIL - ").Append(result.errorMessage).Append("\n");
+                string displayMessage = AdjustReportedLine(result.errorMessage, CountLines(test.setupCode));
+                sb.Append("Test ").Append(i + 1).Append(": FAIL - ").Append(displayMessage).Append("\n");
                 continue;
             }
 
@@ -137,6 +138,57 @@ public class CodeKiosk : MonoBehaviour {
     static string Truncate(string s) {
         if (s.Length <= MaxDiffLen) return s;
         return s.Substring(0, MaxDiffLen) + "...";
+    }
+
+    // test.setupCode is run concatenated with the player's InputField text, so a MiniLang
+    // error's reported line number counts setupCode's lines too. The player never sees
+    // setupCode in the InputField, so re-express the line number relative to their own code.
+    static string AdjustReportedLine(string errorMessage, int setupLineCount) {
+        if (string.IsNullOrEmpty(errorMessage)) return errorMessage;
+
+        int len = errorMessage.Length;
+        int i = 0;
+        while (i < len && char.IsWhiteSpace(errorMessage[i])) i++;
+        int prefixEnd = i;
+
+        if (i + 4 > len) return errorMessage;
+        if (char.ToLowerInvariant(errorMessage[i]) != 'l' ||
+            char.ToLowerInvariant(errorMessage[i + 1]) != 'i' ||
+            char.ToLowerInvariant(errorMessage[i + 2]) != 'n' ||
+            char.ToLowerInvariant(errorMessage[i + 3]) != 'e') {
+            return errorMessage;
+        }
+        i += 4;
+
+        int wsStart = i;
+        while (i < len && char.IsWhiteSpace(errorMessage[i])) i++;
+        if (i == wsStart) return errorMessage;
+
+        int numStart = i;
+        while (i < len && char.IsDigit(errorMessage[i])) i++;
+        if (i == numStart) return errorMessage;
+        int numEnd = i;
+
+        if (numEnd >= len || errorMessage[numEnd] != ':') return errorMessage;
+
+        int reportedLine;
+        if (!int.TryParse(errorMessage.Substring(numStart, numEnd - numStart), out reportedLine)) {
+            return errorMessage;
+        }
+
+        int adjusted = reportedLine - setupLineCount;
+        if (adjusted < 1) adjusted = 1;
+
+        return errorMessage.Substring(0, prefixEnd) + "Line " + adjusted + errorMessage.Substring(numEnd);
+    }
+
+    static int CountLines(string s) {
+        if (string.IsNullOrEmpty(s)) return 1;
+        int count = 1;
+        for (int i = 0; i < s.Length; i++) {
+            if (s[i] == '\n') count++;
+        }
+        return count;
     }
 
     Text CreateText(Transform parent, string name, Font font, int fontSize, FontStyle style, TextAnchor anchor) {

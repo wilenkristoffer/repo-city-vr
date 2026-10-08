@@ -16,8 +16,10 @@ namespace RepoCity
         public float inspectMaxDistance = 60f;
 
         Camera rigCamera;
-        LineRenderer teleportLine;
-        GameObject teleportMarker;
+        LineRenderer leftTeleportLine;
+        GameObject leftTeleportMarker;
+        LineRenderer rightTeleportLine;
+        GameObject rightTeleportMarker;
 
         bool leftTriggerHeldPrev;
         bool rightTriggerHeldPrev;
@@ -34,25 +36,43 @@ namespace RepoCity
         {
             rigCamera = GetComponentInChildren<Camera>();
 
-            teleportLine = GetComponent<LineRenderer>();
-            if (teleportLine == null)
+            leftTeleportLine = GetComponent<LineRenderer>();
+            if (leftTeleportLine == null)
             {
-                teleportLine = gameObject.AddComponent<LineRenderer>();
+                leftTeleportLine = gameObject.AddComponent<LineRenderer>();
             }
-            teleportLine.positionCount = 2;
-            teleportLine.startWidth = 0.03f;
-            teleportLine.endWidth = 0.03f;
-            teleportLine.enabled = false;
+            leftTeleportLine.positionCount = 2;
+            leftTeleportLine.startWidth = 0.03f;
+            leftTeleportLine.endWidth = 0.03f;
+            leftTeleportLine.enabled = false;
 
-            teleportMarker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            teleportMarker.name = "TeleportMarker";
-            Collider markerCollider = teleportMarker.GetComponent<Collider>();
-            if (markerCollider != null)
+            leftTeleportMarker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            leftTeleportMarker.name = "TeleportMarker_Left";
+            Collider leftMarkerCollider = leftTeleportMarker.GetComponent<Collider>();
+            if (leftMarkerCollider != null)
             {
-                Destroy(markerCollider);
+                Destroy(leftMarkerCollider);
             }
-            teleportMarker.transform.localScale = new Vector3(0.5f, 0.02f, 0.5f);
-            teleportMarker.SetActive(false);
+            leftTeleportMarker.transform.localScale = new Vector3(0.5f, 0.02f, 0.5f);
+            leftTeleportMarker.SetActive(false);
+
+            GameObject rightLineObject = new GameObject("TeleportLine_Right");
+            rightLineObject.transform.SetParent(transform, false);
+            rightTeleportLine = rightLineObject.AddComponent<LineRenderer>();
+            rightTeleportLine.positionCount = 2;
+            rightTeleportLine.startWidth = 0.03f;
+            rightTeleportLine.endWidth = 0.03f;
+            rightTeleportLine.enabled = false;
+
+            rightTeleportMarker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            rightTeleportMarker.name = "TeleportMarker_Right";
+            Collider rightMarkerCollider = rightTeleportMarker.GetComponent<Collider>();
+            if (rightMarkerCollider != null)
+            {
+                Destroy(rightMarkerCollider);
+            }
+            rightTeleportMarker.transform.localScale = new Vector3(0.5f, 0.02f, 0.5f);
+            rightTeleportMarker.SetActive(false);
         }
 
         void Update()
@@ -69,13 +89,18 @@ namespace RepoCity
                 return;
             }
 
-            bool anyAiming = false;
-            anyAiming |= UpdateHandTeleport(leftDevice, ref leftTriggerHeldPrev, ref leftHasValidLanding, ref leftLastValidLanding);
-            anyAiming |= UpdateHandTeleport(rightDevice, ref rightTriggerHeldPrev, ref rightHasValidLanding, ref rightLastValidLanding);
+            bool leftAiming = UpdateHandTeleport(leftDevice, leftTeleportLine, leftTeleportMarker, ref leftTriggerHeldPrev, ref leftHasValidLanding, ref leftLastValidLanding);
+            bool rightAiming = UpdateHandTeleport(rightDevice, rightTeleportLine, rightTeleportMarker, ref rightTriggerHeldPrev, ref rightHasValidLanding, ref rightLastValidLanding);
 
-            if (!anyAiming)
+            if (!leftAiming)
             {
-                HideTeleportVisuals();
+                leftTeleportLine.enabled = false;
+                leftTeleportMarker.SetActive(false);
+            }
+            if (!rightAiming)
+            {
+                rightTeleportLine.enabled = false;
+                rightTeleportMarker.SetActive(false);
             }
 
             UpdateHandInspect(leftDevice, ref leftGripHeldPrev);
@@ -84,8 +109,10 @@ namespace RepoCity
 
         void HideTeleportVisuals()
         {
-            teleportLine.enabled = false;
-            teleportMarker.SetActive(false);
+            leftTeleportLine.enabled = false;
+            leftTeleportMarker.SetActive(false);
+            rightTeleportLine.enabled = false;
+            rightTeleportMarker.SetActive(false);
         }
 
         Vector3 leftLastValidLanding;
@@ -94,7 +121,7 @@ namespace RepoCity
         bool rightHasValidLanding;
 
         // Returns true while this hand is actively aiming (trigger held) this frame.
-        bool UpdateHandTeleport(InputDevice device, ref bool triggerHeldPrev, ref bool hasValidLanding, ref Vector3 lastValidLanding)
+        bool UpdateHandTeleport(InputDevice device, LineRenderer teleportLine, GameObject teleportMarker, ref bool triggerHeldPrev, ref bool hasValidLanding, ref Vector3 lastValidLanding)
         {
             if (!device.isValid)
             {

@@ -100,6 +100,8 @@ namespace RepoCity
         bool hasWalkClip;
         bool hasIdleClip;
 
+        static readonly Dictionary<string, AnimationClip[]> animationCache = new Dictionary<string, AnimationClip[]>();
+
         public void Init(List<Vector3> loopWaypoints, int startIndex, string modelName)
         {
             waypoints = loopWaypoints;
@@ -113,7 +115,12 @@ namespace RepoCity
 
         void SetupAnimation(string modelName)
         {
-            AnimationClip[] clips = Resources.LoadAll<AnimationClip>("RepoCity/Characters/" + modelName);
+            AnimationClip[] clips;
+            if (!animationCache.TryGetValue(modelName, out clips))
+            {
+                clips = Resources.LoadAll<AnimationClip>("RepoCity/Characters/" + modelName);
+                animationCache[modelName] = clips;
+            }
 
             AnimationClip walkClip = null;
             AnimationClip idleClip = null;

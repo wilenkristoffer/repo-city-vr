@@ -23,6 +23,7 @@ namespace RepoCity {
             bool isFirst = true;
 
             foreach (WorldIslandConfig config in WorldConfig.Islands) {
+                GameObject islandRoot = null;
                 try {
                     RepoData data = RepoDataLoader.Load(config.resourcePath);
                     CityLayoutResult layout = CityLayoutBuilder.Compute(data);
@@ -40,7 +41,7 @@ namespace RepoCity {
                         cursorX += halfWidth;
                     }
 
-                    GameObject islandRoot = new GameObject("Island_" + config.label);
+                    islandRoot = new GameObject("Island_" + config.label);
                     islandRoot.transform.SetParent(parent, false);
 
                     GameObject cityRoot = CityBuilder.Build(layout);
@@ -83,6 +84,9 @@ namespace RepoCity {
                     Debug.Log("WorldBuilder: built island '" + config.label + "' with " +
                         layout.buildings.Count + " buildings at worldCenter " + worldCenter);
                 } catch (System.Exception e) {
+                    if (islandRoot != null) {
+                        Object.Destroy(islandRoot);
+                    }
                     Debug.LogWarning("WorldBuilder: failed to build island '" + config.label + "' (" +
                         config.resourcePath + "), skipping. " + e);
                 }

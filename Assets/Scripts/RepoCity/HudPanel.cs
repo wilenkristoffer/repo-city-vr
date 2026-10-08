@@ -60,9 +60,19 @@ namespace RepoCity {
             legendText = CreateText(defaultGroup.transform, "Legend", font, 10, FontStyle.Normal, TextAnchor.UpperLeft);
             SetRect(legendText.rectTransform, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(8f, 6f), new Vector2(-8f, -48f));
             legendText.verticalOverflow = VerticalWrapMode.Overflow;
+            legendText.rectTransform.gameObject.AddComponent<RectMask2D>();
 
             List<BuildingCategory> categories =
                 BuildingPalette.CategoriesInUse(layout.buildings.Select(b => b.file)).ToList();
+
+            // Default step is 12 units/category. With more categories than the legend's
+            // fixed height can hold at that step, shrink the step (and swatch/font size
+            // with it) to fit; RectMask2D above clips anything that still overflows.
+            float legendHeight = legendText.rectTransform.rect.height;
+            float step = categories.Count > 1 ? Mathf.Min(12f, legendHeight / categories.Count) : 12f;
+            float scale = Mathf.Clamp01(step / 12f);
+            float swatchSize = 8f * scale;
+            legendText.fontSize = Mathf.Max(6, Mathf.RoundToInt(10f * scale));
 
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             for (int i = 0; i < categories.Count; i++) {
@@ -76,8 +86,8 @@ namespace RepoCity {
                 swatchRect.anchorMin = new Vector2(0f, 1f);
                 swatchRect.anchorMax = new Vector2(0f, 1f);
                 swatchRect.pivot = new Vector2(0f, 1f);
-                swatchRect.anchoredPosition = new Vector2(0f, -i * 12f);
-                swatchRect.sizeDelta = new Vector2(8f, 8f);
+                swatchRect.anchoredPosition = new Vector2(0f, -i * step);
+                swatchRect.sizeDelta = new Vector2(swatchSize, swatchSize);
 
                 sb.Append("   ").Append(cat.label);
                 if (i < categories.Count - 1) sb.Append("\n");
