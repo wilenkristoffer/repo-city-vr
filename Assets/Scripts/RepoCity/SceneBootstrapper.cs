@@ -15,6 +15,8 @@ namespace RepoCity {
         void Start() {
             WorldLighting.Setup();
             AudioManager.PlayAmbience("city_traffic_loop", 0.2f);
+            // Load the NPC/narration model now so the first conversation isn't a multi-second cold start.
+            StartCoroutine(OllamaClient.Warmup());
 
             RepoData data;
             CityLayoutResult layout;
@@ -105,16 +107,19 @@ namespace RepoCity {
 
                 if (file == null) {
                     hudPanel.ClearNarration();
+                    SpeechBubble.Hide();
                     return;
                 }
 
                 hudPanel.ShowNarration(file, "Thinking...");
+                SpeechBubble.ShowNarration(file, "Thinking...", false);
                 if (activeRequestCoroutine != null) {
                     StopCoroutine(activeRequestCoroutine);
                 }
                 activeRequestCoroutine = StartCoroutine(OllamaNarrator.GetNarration(file, text => {
                     if (token == inspectToken) {
                         hudPanel.ShowNarration(file, text);
+                        SpeechBubble.ShowNarration(file, text, true);
                     }
                 }));
             };
@@ -127,12 +132,16 @@ namespace RepoCity {
                 int token = inspectToken;
 
                 hudPanel.ShowNpcLine(npc.personaName, npc.personaJob, "...");
+                SpeechBubble.ShowNpc(npc, "...", false);
+                NpcWalker walker = npc.GetComponent<NpcWalker>();
+                if (walker != null && Camera.main != null) walker.StopToTalk(Camera.main.transform.position, 12f);
                 if (activeRequestCoroutine != null) {
                     StopCoroutine(activeRequestCoroutine);
                 }
                 activeRequestCoroutine = StartCoroutine(NpcChat.GetLine(npc, line => {
                     if (token == inspectToken) {
                         hudPanel.ShowNpcLine(npc.personaName, npc.personaJob, line);
+                        SpeechBubble.ShowNpc(npc, line, true);
                     }
                 }));
             };

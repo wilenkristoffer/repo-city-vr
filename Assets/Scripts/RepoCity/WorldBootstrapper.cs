@@ -20,6 +20,8 @@ namespace RepoCity {
             GameSettings.EnsureLoaded();
             AudioManager.EnsureInitialized();
             AudioManager.PlayAmbience("city_traffic_loop", 0.2f);
+            // Load the NPC/narration model now so the first conversation isn't a multi-second cold start.
+            StartCoroutine(OllamaClient.Warmup());
             WorldLighting.Setup();
             gameObject.AddComponent<DayNightCycle>();
 
@@ -127,8 +129,10 @@ namespace RepoCity {
 
                 GameObject toastGO = new GameObject("AchievementToast");
                 toastGO.transform.SetParent(playerCam.transform, false);
-                toastGO.transform.localPosition = new Vector3(0f, -0.25f, 0.6f);
-                toastGO.transform.localRotation = Quaternion.identity;
+                // 1.5 m out and below the eye line: closer filled the view and was hard to focus on.
+                toastGO.transform.localPosition = new Vector3(0f, -0.4f, 1.5f);
+                // Tilted to face the eye along the slightly downward line of sight.
+                toastGO.transform.localRotation = Quaternion.Euler(15f, 0f, 0f);
                 toastGO.AddComponent<AchievementToastUI>();
             }
 
@@ -147,15 +151,18 @@ namespace RepoCity {
 
                 if (file == null) {
                     hudPanel.ClearNarration();
+                    SpeechBubble.Hide();
                     return;
                 }
 
                 AudioManager.PlayUi("ui_click", 0.5f);
                 AchievementTracker.NotifyFileInspected(file.path);
                 hudPanel.ShowNarration(file, "Thinking...");
+                SpeechBubble.ShowNarration(file, "Thinking...", false);
                 StartCoroutine(OllamaNarrator.GetNarration(file, text => {
                     if (token == inspectToken) {
                         hudPanel.ShowNarration(file, text);
+                        SpeechBubble.ShowNarration(file, text, true);
                         AudioManager.PlayUi("npc_blip", 0.4f);
                     }
                 }));
@@ -168,9 +175,13 @@ namespace RepoCity {
                 AudioManager.PlayUi("ui_click", 0.5f);
                 AchievementTracker.NotifyNpcTalkedTo(npc.personaName);
                 hudPanel.ShowNpcLine(npc.personaName, npc.personaJob, "...");
+                SpeechBubble.ShowNpc(npc, "...", false);
+                NpcWalker walker = npc.GetComponent<NpcWalker>();
+                if (walker != null && playerCam != null) walker.StopToTalk(playerCam.transform.position, 12f);
                 StartCoroutine(NpcChat.GetLine(npc, line => {
                     if (token == inspectToken) {
                         hudPanel.ShowNpcLine(npc.personaName, npc.personaJob, line);
+                        SpeechBubble.ShowNpc(npc, line, true);
                         AudioManager.PlayUi("npc_blip", 0.4f);
                     }
                 }));
@@ -229,10 +240,7 @@ namespace RepoCity {
             textMesh.characterSize = 0.5f;
             textMesh.color = Color.white;
 
-            // The connector road approaches this island from -X (from the previous island), so the
-            // sign should read correctly to someone arriving from that direction.
-            signGO.transform.LookAt(signPos + Vector3.left * 10f);
-            signGO.transform.Rotate(0f, 180f, 0f); // TextMesh's face is on the opposite side of its forward axis
+            signGO.AddComponent<FaceViewer>();
         }
 
         static void BuildConnectorRoad(WorldIslandResult from, WorldIslandResult to, Transform parent) {

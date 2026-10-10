@@ -8,10 +8,13 @@ namespace RepoCity {
         const string PrefSensitivity = "settings_mouse_sensitivity";
         const string PrefQuality = "settings_quality";
         const string PrefFullscreen = "settings_fullscreen";
+        const string PrefAiDialogue = "settings_ai_dialogue";
 
         public static float MouseSensitivity { get; private set; } = 1f;
         public static int QualityLevel { get; private set; } = -1;
         public static bool Fullscreen { get; private set; } = true;
+        // NPC chat and building narration via local Ollama; off means preset lines only.
+        public static bool AiDialogue { get; private set; } = true;
 
         static bool loaded;
 
@@ -22,6 +25,7 @@ namespace RepoCity {
             MouseSensitivity = PlayerPrefs.GetFloat(PrefSensitivity, 1f);
             QualityLevel = PlayerPrefs.GetInt(PrefQuality, QualitySettings.GetQualityLevel());
             Fullscreen = PlayerPrefs.GetInt(PrefFullscreen, Screen.fullScreen ? 1 : 0) == 1;
+            AiDialogue = PlayerPrefs.GetInt(PrefAiDialogue, 1) == 1;
 
             ApplyQuality();
             ApplyFullscreen();
@@ -48,6 +52,13 @@ namespace RepoCity {
             PlayerPrefs.SetInt(PrefFullscreen, Fullscreen ? 1 : 0);
             PlayerPrefs.Save();
             ApplyFullscreen();
+        }
+
+        public static void SetAiDialogue(bool enabled) {
+            EnsureLoaded();
+            AiDialogue = enabled;
+            PlayerPrefs.SetInt(PrefAiDialogue, AiDialogue ? 1 : 0);
+            PlayerPrefs.Save();
         }
 
         static void ApplyQuality() {

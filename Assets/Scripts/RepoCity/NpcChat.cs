@@ -2,86 +2,52 @@ using System;
 using System.Collections;
 using System.Text;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace RepoCity {
 
     public static class NpcChat {
 
-        private const string TagsUrl = "http://localhost:11434/api/tags";
-        private const string GenerateUrl = "http://localhost:11434/api/generate";
+        const int RememberedLines = 3;
 
-        [System.Serializable]
-        private class OllamaResponse {
-            public string response;
-        }
+        // Picked fresh each time so repeated chats with one NPC wander between subjects.
+        private static readonly string[] Topics = new string[] {
+            "something about yourself or what you're up to",
+            "something about yourself or what you're up to",
+            "your job and how today is going",
+            "a juicy bit of local gossip",
+            "a building or street in this city",
+            "a question for the visitor",
+            "something you're excited or annoyed about right now",
+            "an odd opinion you hold strongly",
+        };
 
         public static IEnumerator GetLine(NpcInfo info, Action<string> onResult) {
-            UnityWebRequest pingRequest = UnityWebRequest.Get(TagsUrl);
-            pingRequest.timeout = 1;
-            yield return pingRequest.SendWebRequest();
-
-            if (pingRequest.result != UnityWebRequest.Result.Success) {
-                onResult(PresetLine());
-                yield break;
-            }
-
-            string prompt = BuildPrompt(info);
-            string bodyJson = "{\"model\":\"llama3.2\",\"prompt\":\"" + EscapeJsonString(prompt) +
-                "\",\"stream\":false,\"options\":{\"num_predict\":50,\"temperature\":1.0}}";
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJson);
-
-            UnityWebRequest genRequest = new UnityWebRequest(GenerateUrl, "POST");
-            genRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            genRequest.downloadHandler = new DownloadHandlerBuffer();
-            genRequest.SetRequestHeader("Content-Type", "application/json");
-            genRequest.timeout = 3;
-
-            yield return genRequest.SendWebRequest();
-
-            if (genRequest.result != UnityWebRequest.Result.Success) {
-                onResult(PresetLine());
-                yield break;
-            }
-
-            string line = ParseLine(genRequest.downloadHandler.text);
+            string line = null;
+            yield return OllamaClient.Generate(BuildPrompt(info), 60, 1.0f, 4, text => line = text);
             if (string.IsNullOrEmpty(line)) {
                 onResult(PresetLine());
-            } else {
-                onResult(line.Trim());
+                yield break;
             }
-        }
-
-        private static string ParseLine(string responseJson) {
-            try {
-                OllamaResponse parsed = JsonUtility.FromJson<OllamaResponse>(responseJson);
-                return parsed != null ? parsed.response : null;
-            } catch {
-                return null;
-            }
+            info.pastLines.Add(line);
+            if (info.pastLines.Count > RememberedLines) info.pastLines.RemoveAt(0);
+            onResult(line);
         }
 
         private static string BuildPrompt(NpcInfo info) {
             StringBuilder sb = new StringBuilder();
             sb.Append("You are ").Append(info.personaName).Append(", a ").Append(info.personaJob)
-                .Append(" living in a small city built out of a codebase. ");
-            sb.Append("A visitor just walked up to you. Say ONE short, friendly, in-character line of small talk (max 20 words). ");
-            sb.Append("No preamble, no quotation marks, just the line.");
-            return sb.ToString();
-        }
-
-        private static string EscapeJsonString(string s) {
-            StringBuilder sb = new StringBuilder(s.Length);
-            foreach (char c in s) {
-                switch (c) {
-                    case '\\': sb.Append("\\\\"); break;
-                    case '"': sb.Append("\\\""); break;
-                    case '\n': sb.Append("\\n"); break;
-                    case '\r': sb.Append("\\r"); break;
-                    case '\t': sb.Append("\\t"); break;
-                    default: sb.Append(c); break;
-                }
+                .Append(" in Repo City, a small town where every building is a file from a software project. ");
+            if (!string.IsNullOrEmpty(info.personality)) sb.Append("Your personality: ").Append(info.personality).Append(". ");
+            if (!string.IsNullOrEmpty(info.personalDetail)) sb.Append("About you: you ").Append(info.personalDetail).Append(". ");
+            sb.Append("A visitor walks up to you. Say ONE short line (max 25 words) in character, about ")
+                .Append(Topics[UnityEngine.Random.Range(0, Topics.Length)]).Append(". ");
+            sb.Append("Let your personality show, be specific and a little surprising, and avoid generic small talk. ");
+            if (info.pastLines.Count > 0) {
+                sb.Append("You already said to this visitor: ");
+                foreach (string past in info.pastLines) sb.Append('"').Append(past).Append("\" ");
+                sb.Append("Say something new; you may refer back to it. ");
             }
+            sb.Append("No preamble, no quotation marks, no name prefix, just the line.");
             return sb.ToString();
         }
 

@@ -96,17 +96,14 @@ namespace RepoCity
             Vector3 hitPoint;
             bool hit = FindClosestUiHit(worldOrigin, worldDirection, out hitObject, out hitPoint);
 
-            // Only draw the laser when it's actually on a panel; otherwise it clutters the view and
-            // competes with Locomotion's teleport arc, which shares the trigger.
             SetOverUi(hand, hit);
-            line.enabled = hit;
-            line.SetPosition(0, worldOrigin);
-            line.SetPosition(1, hit ? hitPoint : worldOrigin + worldDirection * maxDistance);
 
             bool triggerHeld = false;
             device.TryGetFeatureValue(CommonUsages.triggerButton, out triggerHeld);
             bool freshPress = triggerHeld && !triggerHeldPrev;
             triggerHeldPrev = triggerHeld;
+
+            UpdateBeam(worldOrigin, worldDirection, hit, hitPoint, triggerHeld);
 
             // Sliders need dragging, which plain click events can't do: while the trigger is held on
             // a slider, set its value straight from where the laser hits along it.
@@ -150,6 +147,51 @@ namespace RepoCity
                 }
             }
         }
+
+        // The beam is always shown so the player can see what grip will inspect, except while the
+        // trigger aims a teleport (Locomotion draws its arc then). It ends on whatever it hits and
+        // turns highlight-coloured on things grip can talk to or inspect.
+        void UpdateBeam(Vector3 origin, Vector3 direction, bool overUi, Vector3 uiHitPoint, bool triggerHeld)
+        {
+            if (triggerHeld && !overUi)
+            {
+                line.enabled = false;
+                return;
+            }
+
+            line.enabled = true;
+            line.SetPosition(0, origin);
+
+            if (overUi)
+            {
+                line.SetPosition(1, uiHitPoint);
+                line.startColor = line.endColor = UiColor;
+                return;
+            }
+
+            RaycastHit worldHit;
+            if (Physics.Raycast(origin, direction, out worldHit, InspectDistance))
+            {
+                bool interactable = worldHit.collider.GetComponentInParent<BuildingInfo>() != null
+                    || worldHit.collider.GetComponentInParent<NpcInfo>() != null;
+                line.SetPosition(1, worldHit.point);
+                line.startColor = interactable ? TargetColor : IdleColor;
+                line.endColor = interactable ? TargetColor : IdleEndColor;
+                return;
+            }
+
+            line.SetPosition(1, origin + direction * IdleLength);
+            line.startColor = IdleColor;
+            line.endColor = new Color(IdleColor.r, IdleColor.g, IdleColor.b, 0f);
+        }
+
+        // Matches Locomotion.inspectMaxDistance, so a highlighted target is always one grip can reach.
+        const float InspectDistance = 60f;
+        const float IdleLength = 4f;
+        static readonly Color UiColor = new Color(1f, 1f, 1f, 0.8f);
+        static readonly Color IdleColor = new Color(1f, 1f, 1f, 0.35f);
+        static readonly Color IdleEndColor = new Color(1f, 1f, 1f, 0.15f);
+        static readonly Color TargetColor = new Color(1f, 0.85f, 0.3f, 0.9f);
 
         void RescanRaycasters()
         {

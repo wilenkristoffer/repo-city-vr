@@ -2,63 +2,15 @@ using System;
 using System.Collections;
 using System.Text;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace RepoCity {
 
     public static class OllamaNarrator {
 
-        private const string TagsUrl = "http://localhost:11434/api/tags";
-        private const string GenerateUrl = "http://localhost:11434/api/generate";
-
-        [System.Serializable]
-        private class OllamaResponse {
-            public string response;
-        }
-
         public static IEnumerator GetNarration(FileEntry file, Action<string> onResult) {
-            UnityWebRequest pingRequest = UnityWebRequest.Get(TagsUrl);
-            pingRequest.timeout = 1;
-            yield return pingRequest.SendWebRequest();
-
-            if (pingRequest.result != UnityWebRequest.Result.Success) {
-                onResult(TemplateNarration(file));
-                yield break;
-            }
-
-            string prompt = BuildPrompt(file);
-            string bodyJson = "{\"model\":\"llama3.2\",\"prompt\":\"" + EscapeJsonString(prompt) +
-                "\",\"stream\":false,\"options\":{\"num_predict\":60,\"temperature\":0.9}}";
-            byte[] bodyRaw = Encoding.UTF8.GetBytes(bodyJson);
-
-            UnityWebRequest genRequest = new UnityWebRequest(GenerateUrl, "POST");
-            genRequest.uploadHandler = new UploadHandlerRaw(bodyRaw);
-            genRequest.downloadHandler = new DownloadHandlerBuffer();
-            genRequest.SetRequestHeader("Content-Type", "application/json");
-            genRequest.timeout = 3;
-
-            yield return genRequest.SendWebRequest();
-
-            if (genRequest.result != UnityWebRequest.Result.Success) {
-                onResult(TemplateNarration(file));
-                yield break;
-            }
-
-            string narration = ParseNarration(genRequest.downloadHandler.text);
-            if (string.IsNullOrEmpty(narration)) {
-                onResult(TemplateNarration(file));
-            } else {
-                onResult(narration.Trim());
-            }
-        }
-
-        private static string ParseNarration(string responseJson) {
-            try {
-                OllamaResponse parsed = JsonUtility.FromJson<OllamaResponse>(responseJson);
-                return parsed != null ? parsed.response : null;
-            } catch {
-                return null;
-            }
+            string narration = null;
+            yield return OllamaClient.Generate(BuildPrompt(file), 60, 0.9f, 6, text => narration = text);
+            onResult(string.IsNullOrEmpty(narration) ? TemplateNarration(file) : narration);
         }
 
         private static string BuildPrompt(FileEntry file) {
@@ -80,21 +32,6 @@ namespace RepoCity {
             sb.Append("Size: ").Append(file.size).Append(" bytes\n");
             sb.Append("Commits: ").Append(file.commits).Append("\n");
             sb.Append("Last touched: ").Append(lastTouched);
-            return sb.ToString();
-        }
-
-        private static string EscapeJsonString(string s) {
-            StringBuilder sb = new StringBuilder(s.Length);
-            foreach (char c in s) {
-                switch (c) {
-                    case '\\': sb.Append("\\\\"); break;
-                    case '"': sb.Append("\\\""); break;
-                    case '\n': sb.Append("\\n"); break;
-                    case '\r': sb.Append("\\r"); break;
-                    case '\t': sb.Append("\\t"); break;
-                    default: sb.Append(c); break;
-                }
-            }
             return sb.ToString();
         }
 

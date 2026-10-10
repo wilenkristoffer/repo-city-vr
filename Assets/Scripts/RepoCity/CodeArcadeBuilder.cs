@@ -50,11 +50,7 @@ public static class CodeArcadeBuilder {
         textMesh.characterSize = 0.4f;
         textMesh.color = Color.white;
 
-        // The arcade sits west of the home island at the same Z, so the player's final approach
-        // is along -X (not -Z) - aim the sign's forward at a point further toward +X so its
-        // readable face ends up pointing back at whoever is arriving from the east.
-        signGO.transform.LookAt(signPos + Vector3.right * 10f);
-        signGO.transform.Rotate(0f, 180f, 0f); // TextMesh's face is on the opposite side of its forward axis
+        signGO.AddComponent<FaceViewer>();
     }
 
     static void BuildKiosk(Transform parent, CodeChallenge challenge, Vector3 basePos) {

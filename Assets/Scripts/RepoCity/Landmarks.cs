@@ -84,18 +84,17 @@ public static class Landmarks {
     }
 
     static void BuildLabel(Transform buildingTransform, Vector3 beaconLocalPos, string label) {
-        // counter-scale so the text isn't stretched/squashed by the building's own (often
-        // non-uniform) scale, which this label inherits as a child of buildingTransform
-        Vector3 lossyScale = buildingTransform.lossyScale;
-        Vector3 counterScale = new Vector3(
-            1f / Mathf.Max(lossyScale.x, 0.0001f),
-            1f / Mathf.Max(lossyScale.y, 0.0001f),
-            1f / Mathf.Max(lossyScale.z, 0.0001f));
-
+        // Positioned from the building's local space, but parented to the building's parent: the
+        // label turns to face the player (FaceViewer), and rotating under the building's
+        // non-uniform scale would shear the text.
         GameObject labelObj = new GameObject("Label_" + label.Replace(" ", ""));
-        labelObj.transform.SetParent(buildingTransform, false);
-        labelObj.transform.localPosition = beaconLocalPos + new Vector3(0f, LabelLocalGap, 0f);
-        labelObj.transform.localScale = counterScale;
+        labelObj.transform.SetParent(buildingTransform.parent, false);
+        labelObj.transform.position = buildingTransform.TransformPoint(beaconLocalPos + new Vector3(0f, LabelLocalGap, 0f));
+        Vector3 parentScale = buildingTransform.parent != null ? buildingTransform.parent.lossyScale : Vector3.one;
+        labelObj.transform.localScale = new Vector3(
+            1f / Mathf.Max(parentScale.x, 0.0001f),
+            1f / Mathf.Max(parentScale.y, 0.0001f),
+            1f / Mathf.Max(parentScale.z, 0.0001f));
 
         TextMesh textMesh = labelObj.AddComponent<TextMesh>();
         textMesh.text = label;
@@ -105,8 +104,7 @@ public static class Landmarks {
         textMesh.characterSize = 0.3f;
         textMesh.color = Color.white;
 
-        labelObj.transform.LookAt(buildingTransform.TransformPoint(beaconLocalPos + Vector3.back * 10f));
-        labelObj.transform.Rotate(0f, 180f, 0f); // TextMesh's face is on the opposite side of its forward axis
+        labelObj.AddComponent<FaceViewer>();
     }
 }
 

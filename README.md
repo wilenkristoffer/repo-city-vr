@@ -6,11 +6,34 @@ Every file in a git repository becomes a building. Directories become districts,
 
 The city also has traffic, pedestrians you can talk to, a day/night cycle, and **Programming Central**, an arcade of small coding challenges you solve at in-world kiosks.
 
+## Screenshots
+
+![The skyline of Repo City, with the sign showing the file count and building colour legend](docs/screenshots/intro.png)
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/npc.png" alt="An NPC tourist with a speech bubble joking about deprecation warnings"></td>
+    <td width="50%"><img src="docs/screenshots/building.png" alt="Skyscrapers with a narration bubble describing one building's file"></td>
+  </tr>
+  <tr>
+    <td>Every pedestrian has a personality and something going on in their life. With Ollama running, they talk in character and remember what they told you.</td>
+    <td>Every building is a file. Point at one and grip to hear a tour guide describe it.</td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/screenshots/programming.png" alt="A Programming Central kiosk with the Biggest of Four challenge"></td>
+    <td width="50%"><img src="docs/screenshots/settings.png" alt="The settings panel with volume sliders, quality and the AI dialogue toggle"></td>
+  </tr>
+  <tr>
+    <td>Programming Central: solve small coding challenges at in-world kiosks.</td>
+    <td>Settings, including the AI dialogue toggle and the model in use.</td>
+  </tr>
+</table>
+
 ## Requirements
 
 - **Unity 6000.6.5f1**, using the Built-in render pipeline with OpenXR.
 - **A PC VR headset through SteamVR.** It's developed and tested on an HTC VIVE Pro 2 with Vive wand controllers. The HTC Vive and Valve Index controller profiles are enabled.
-- **Optional: [Ollama](https://ollama.com)** running locally with the `llama3.2` model. When it's available, NPCs and file narration use it to generate dialogue. Without it, they fall back to preset lines.
+- **Optional: [Ollama](https://ollama.com)** running locally. When it's available, NPCs and building narration use it to generate dialogue; without it, they fall back to preset lines. The game uses the first installed model from a preference list, starting with `gemma3:4b` (about 3 GB of video memory, replies in well under a second), and falls back to any installed chat model. Turn it off under **Settings → AI Dialogue** to free the video memory for VR.
 
 The project also runs on desktop without a headset, using keyboard and mouse.
 
@@ -30,7 +53,7 @@ The scene order is `MainMenu` → `RepoWorld` (all islands) → `RepoCity`.
 | --- | --- |
 | Point at a panel + **trigger** | Click buttons. Hold and move to drag sliders. |
 | **Trigger** (not on a panel) | Aim the teleport arc. Release to teleport. |
-| **Grip** | Inspect the building you're pointing at. |
+| **Grip** | Talk to the person, or inspect the building, you're pointing at. The pointer beam turns yellow when there's something to talk to or inspect. |
 | **Menu button** (above the trackpad) | Pause menu. |
 | **Left trackpad click** | Show/hide the wrist minimap. Raise your left hand to read it. |
 | **Grip** on the main menu | Recenter the menu in front of you. |
@@ -62,7 +85,7 @@ The script reads `git ls-files` and `git log` and writes the file list with size
   - `WorldBootstrapper`, `SceneBootstrapper` and `MainMenu` are the scene entry points.
   - `CityLayout`, `CityBuilder`, `WorldBuilder`, `RoadNetwork` and `Landmarks` generate the city.
   - `HeadTracker`, `HandAnchor`, `HandVisual`, `Locomotion` and `VrUiPointer` handle VR tracking, hands, teleport and laser UI.
-  - `TrafficController`, `NpcController`, `NpcChat` and `OllamaNarrator` provide the living-city systems.
+  - `TrafficController`, `NpcController`, `NpcChat`, `OllamaNarrator` and `OllamaClient` provide the living-city systems. `SpeechBubble` shows NPC lines and narration, and `FaceViewer` turns labels to face the player.
   - `CodeArcadeBuilder`, `CodeKiosk`, `CodeChallenges` and `MiniLang` make up Programming Central and its small interpreted language.
 - `Assets/Editor/`: batch-mode setup helpers. `SetupScene` creates the scenes and `SetupXR` configures OpenXR and the controller profiles.
 - `scripts/generate-repo-data.js`: repository-to-city data exporter.

@@ -25,7 +25,8 @@ namespace RepoCity {
 
             RectTransform canvasRect = canvasGO.GetComponent<RectTransform>();
             canvasRect.sizeDelta = new Vector2(260f, 60f);
-            canvasGO.transform.localScale = new Vector3(0.006f, 0.006f, 0.006f);
+            // 260 units -> 0.65 m wide; at the toast's 1.5 m distance that's a comfortable glance.
+            canvasGO.transform.localScale = new Vector3(0.0025f, 0.0025f, 0.0025f);
             canvasGO.transform.localPosition = Vector3.zero;
             canvasGO.transform.localRotation = Quaternion.identity;
 
@@ -43,7 +44,7 @@ namespace RepoCity {
             textGO.transform.SetParent(canvasGO.transform, false);
             toastText = textGO.AddComponent<Text>();
             toastText.font = font;
-            toastText.fontSize = 13;
+            toastText.fontSize = 17;
             toastText.fontStyle = FontStyle.Bold;
             toastText.alignment = TextAnchor.MiddleCenter;
             toastText.color = Color.white;

@@ -198,8 +198,7 @@ public static class CityBuilder {
         textMesh.characterSize = 0.3f;
         textMesh.color = Color.white;
 
-        labelObj.transform.LookAt(new Vector3(0f, labelY, 40f));
-        labelObj.transform.Rotate(0f, 180f, 0f); // TextMesh's face is on the opposite side of its forward axis
+        labelObj.AddComponent<FaceViewer>();
     }
 
     // Nudges hue/saturation/value per-building so a category isn't one flat color block repeated

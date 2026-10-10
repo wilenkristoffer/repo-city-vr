@@ -10,6 +10,11 @@ namespace RepoCity
     {
         public string personaName;
         public string personaJob;
+        // Added later (not part of the frozen contract): flavour for NpcChat's prompt so each
+        // NPC sounds like the same distinct person every time you talk to them.
+        public string personality;
+        public string personalDetail;
+        [System.NonSerialized] public List<string> pastLines = new List<string>();
     }
 
     public static class NpcSpawner
@@ -32,6 +37,27 @@ namespace RepoCity
         {
             "barista", "courier", "street musician", "shopkeeper", "dog walker",
             "office worker", "tourist", "student", "mechanic", "artist", "jogger", "retiree",
+        };
+
+        static readonly string[] Personalities =
+        {
+            "cheerful and chatty", "grumpy but secretly kind", "dreamy and poetic",
+            "nervous and overly polite", "sarcastic with a dry wit", "an enthusiastic know-it-all",
+            "laid-back and a bit sleepy", "dramatic, treats everything as a huge deal",
+            "endlessly curious", "a proud local who loves gossip", "philosophical",
+            "competitive and boastful",
+        };
+
+        // Things the NPC is up to; written for a town whose buildings are source files.
+        static readonly string[] PersonalDetails =
+        {
+            "is training for their first marathon", "just adopted a very loud parrot",
+            "is secretly writing a mystery novel", "lost their keys again this morning",
+            "collects vintage mechanical keyboards", "swears the oldest building in town is haunted",
+            "is learning the accordion, badly", "just moved here from a much smaller repo",
+            "has an ongoing feud with a neighbour's cat", "won last year's pie-baking contest",
+            "is convinced the pigeons are plotting something", "is saving up for a trip to the cloud",
+            "has never once missed a sunrise", "is building a tiny boat in their kitchen",
         };
 
         public static void Spawn(Transform parent, List<Vector3> sidewalkLoopWaypoints, int npcCount)
@@ -69,6 +95,8 @@ namespace RepoCity
                 NpcInfo info = instance.AddComponent<NpcInfo>();
                 info.personaName = PersonaNames[Random.Range(0, PersonaNames.Length)];
                 info.personaJob = PersonaJobs[Random.Range(0, PersonaJobs.Length)];
+                info.personality = Personalities[Random.Range(0, Personalities.Length)];
+                info.personalDetail = PersonalDetails[Random.Range(0, PersonalDetails.Length)];
 
                 CapsuleCollider capsule = instance.AddComponent<CapsuleCollider>();
                 capsule.height = 1.8f;
@@ -95,6 +123,7 @@ namespace RepoCity
         float pauseTimer;
         bool paused;
         float nextPauseCheckTime;
+        Quaternion? pauseFacing;
 
         Animation legacyAnimation;
         bool hasWalkClip;
@@ -149,6 +178,17 @@ namespace RepoCity
             legacyAnimation.wrapMode = WrapMode.Loop;
         }
 
+        // Stands still facing the player while they talk, then resumes the sidewalk loop.
+        public void StopToTalk(Vector3 playerPosition, float seconds)
+        {
+            Vector3 toPlayer = playerPosition - transform.position;
+            toPlayer.y = 0f;
+            pauseFacing = toPlayer.sqrMagnitude > 0.01f ? Quaternion.LookRotation(toPlayer, Vector3.up) : (Quaternion?)null;
+            paused = true;
+            pauseTimer = Mathf.Max(pauseTimer, seconds);
+            PlayIdle();
+        }
+
         void PlayWalk()
         {
             if (hasWalkClip) legacyAnimation.Play("walk");
@@ -163,10 +203,15 @@ namespace RepoCity
         {
             if (paused)
             {
+                if (pauseFacing.HasValue)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, pauseFacing.Value, TurnDegreesPerSecond * Time.deltaTime);
+                }
                 pauseTimer -= Time.deltaTime;
                 if (pauseTimer <= 0f)
                 {
                     paused = false;
+                    pauseFacing = null;
                     PlayWalk();
                 }
                 return;

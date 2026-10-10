@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -68,6 +69,20 @@ namespace RepoCity {
             Toggle fullscreenToggle = CreateToggle(fullscreenControl, GameSettings.Fullscreen);
             fullscreenToggle.onValueChanged.AddListener(v => { GameSettings.SetFullscreen(v); AudioManager.PlayUi("ui_click"); });
 
+            RectTransform aiRow = AddRow(canvasGO.transform, "AiDialogueRow", ref y);
+            CreateRowLabel(aiRow, font, "AI Dialogue (Ollama)");
+            RectTransform aiControl = CreateControlArea(aiRow);
+            Toggle aiToggle = CreateToggle(aiControl, GameSettings.AiDialogue);
+            Text aiStatus = CreateText(aiControl, "Status", font, 13, FontStyle.Normal, TextAnchor.MiddleLeft);
+            SetRect(aiStatus.rectTransform, Vector2.zero, Vector2.one, new Vector2(52f, 0f), Vector2.zero);
+            StartCoroutine(RefreshAiStatus(aiStatus));
+            aiToggle.onValueChanged.AddListener(v => {
+                GameSettings.SetAiDialogue(v);
+                AudioManager.PlayUi("ui_click");
+                StartCoroutine(v ? OllamaClient.Warmup() : OllamaClient.Unload());
+                StartCoroutine(RefreshAiStatus(aiStatus));
+            });
+
             Button backButton = CreateButton(canvasGO.transform, font, "Back");
             RectTransform backRect = backButton.GetComponent<RectTransform>();
             backRect.anchorMin = new Vector2(0.5f, 0f);
@@ -79,6 +94,14 @@ namespace RepoCity {
                 canvasGO.SetActive(false);
                 onClose?.Invoke();
             });
+        }
+
+        static IEnumerator RefreshAiStatus(Text status) {
+            if (!GameSettings.AiDialogue) { status.text = "Off - preset lines"; yield break; }
+            status.text = "Checking...";
+            yield return OllamaClient.EnsureModel();
+            if (status == null) yield break;
+            status.text = OllamaClient.SelectedModel ?? "Ollama not found - preset lines";
         }
 
         static float lastTickTime;
