@@ -18,6 +18,7 @@ namespace RepoCity
         const float RescanInterval = 1f;
 
         bool triggerHeldPrev;
+        Slider draggingSlider;
 
         static bool leftOverUi;
         static bool rightOverUi;
@@ -67,7 +68,7 @@ namespace RepoCity
 
         void Update()
         {
-            rescanTimer -= Time.deltaTime;
+            rescanTimer -= Time.unscaledDeltaTime; // unscaled: must keep finding the pause menu while timeScale is 0
             if (rescanTimer <= 0f)
             {
                 RescanRaycasters();
@@ -106,6 +107,38 @@ namespace RepoCity
             device.TryGetFeatureValue(CommonUsages.triggerButton, out triggerHeld);
             bool freshPress = triggerHeld && !triggerHeldPrev;
             triggerHeldPrev = triggerHeld;
+
+            // Sliders need dragging, which plain click events can't do: while the trigger is held on
+            // a slider, set its value straight from where the laser hits along it.
+            if (!triggerHeld)
+            {
+                draggingSlider = null;
+            }
+            else if (hit && (freshPress || draggingSlider != null))
+            {
+                Slider slider = freshPress ? hitObject.GetComponentInParent<Slider>() : draggingSlider;
+                if (slider != null && slider.interactable)
+                {
+                    draggingSlider = slider;
+                    RectTransform sliderRect = (RectTransform)slider.transform;
+                    Vector3 local = sliderRect.InverseTransformPoint(hitPoint);
+                    float t = Mathf.InverseLerp(sliderRect.rect.xMin, sliderRect.rect.xMax, local.x);
+                    slider.normalizedValue = t;
+                    return;
+                }
+            }
+
+            // Dropdowns open a popup list the laser can't reliably reach in VR; step through the
+            // options on each click instead.
+            if (freshPress && hit)
+            {
+                Dropdown dropdown = hitObject.GetComponentInParent<Dropdown>();
+                if (dropdown != null && dropdown.interactable && dropdown.options.Count > 0)
+                {
+                    dropdown.value = (dropdown.value + 1) % dropdown.options.Count;
+                    return;
+                }
+            }
 
             if (freshPress && hit)
             {

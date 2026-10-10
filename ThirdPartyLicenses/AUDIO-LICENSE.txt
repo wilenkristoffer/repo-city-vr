@@ -1,2 +1,4 @@
 Audio: Kenney.nl asset packs (CC0 1.0 Universal) - interface-sounds, ui-audio, digital-audio, impact-sounds, music-jingles
 Source: https://kenney.nl - no attribution required, included here for reference.
+Audio: city_traffic_loop.ogg = sfx100v2_loop_highway.ogg from '100 CC0 SFX #2' by rubberduck (CC0 1.0 Universal)
+Source: https://opengameart.org/content/100-cc0-sfx-2 - no attribution required, included here for reference.

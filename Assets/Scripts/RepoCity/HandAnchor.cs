@@ -5,14 +5,14 @@ namespace RepoCity {
 
     // Follows one controller, in the same rig-local space as the HeadTracker camera. Put it under the
     // player rig and parent things to it (e.g. the wrist minimap). Children are hidden while the
-    // controller isn't tracked, and optionally toggled by the controller menu button on either hand.
+    // controller isn't tracked, and optionally toggled by clicking this controller's trackpad.
     public class HandAnchor : MonoBehaviour {
 
         public XRNode hand = XRNode.LeftHand;
-        public bool toggleWithMenuButton;
+        public bool toggleWithTrackpadClick;
 
         bool shown = true;
-        bool menuHeldPrev;
+        bool clickHeldPrev;
 
         void OnEnable() {
             Application.onBeforeRender += ApplyPose;
@@ -23,12 +23,13 @@ namespace RepoCity {
         }
 
         void Update() {
-            if (toggleWithMenuButton) {
-                bool menuHeld = MenuHeld(XRNode.LeftHand) || MenuHeld(XRNode.RightHand);
-                if (menuHeld && !menuHeldPrev) {
+            if (toggleWithTrackpadClick) {
+                // The menu button above the trackpad is taken by PauseMenu.
+                bool clickHeld = TrackpadClickHeld(hand);
+                if (clickHeld && !clickHeldPrev) {
                     shown = !shown;
                 }
-                menuHeldPrev = menuHeld;
+                clickHeldPrev = clickHeld;
             }
             ApplyPose();
         }
@@ -57,10 +58,10 @@ namespace RepoCity {
             }
         }
 
-        static bool MenuHeld(XRNode node) {
+        static bool TrackpadClickHeld(XRNode node) {
             InputDevice device = InputDevices.GetDeviceAtXRNode(node);
             bool held = false;
-            return device.isValid && device.TryGetFeatureValue(CommonUsages.menuButton, out held) && held;
+            return device.isValid && device.TryGetFeatureValue(CommonUsages.primary2DAxisClick, out held) && held;
         }
     }
 }

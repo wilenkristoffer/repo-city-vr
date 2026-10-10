@@ -12,6 +12,7 @@ namespace RepoCity {
         void Start() {
             AudioManager.EnsureInitialized();
             GameSettings.EnsureLoaded();
+            AudioManager.StopAmbience();
             AudioManager.PlayMusic("menu_jingle", false);
 
             if (Camera.main == null) {
@@ -33,6 +34,8 @@ namespace RepoCity {
             leftHandPointerGO.AddComponent<VrUiPointer>().hand = UnityEngine.XR.XRNode.LeftHand;
             GameObject rightHandPointerGO = new GameObject("RightHandPointer");
             rightHandPointerGO.AddComponent<VrUiPointer>().hand = UnityEngine.XR.XRNode.RightHand;
+            HandVisual.CreateFor(null, UnityEngine.XR.XRNode.LeftHand);
+            HandVisual.CreateFor(null, UnityEngine.XR.XRNode.RightHand);
 
             BuildCanvas();
         }
@@ -141,9 +144,15 @@ namespace RepoCity {
             }
 
             CreateButton(canvasGO.transform, font, "SettingsButton", "Settings", new Vector2(0f, -160f), () => {
+                // Hide the main menu while settings are open: both canvases share one plane, and the
+                // laser hit the (larger) menu canvas first, so Back never received the click.
+                canvasGO.SetActive(false);
                 GameObject settingsGO = new GameObject("SettingsPanel");
                 settingsGO.transform.SetParent(menuRoot, false);
-                settingsGO.AddComponent<SettingsPanel>().Initialize(() => { Destroy(settingsGO); });
+                settingsGO.AddComponent<SettingsPanel>().Initialize(() => {
+                    Destroy(settingsGO);
+                    canvasGO.SetActive(true);
+                });
             });
 
             CreateButton(canvasGO.transform, font, "QuitButton", "Quit", new Vector2(0f, -230f), () => {

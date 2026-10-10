@@ -16,11 +16,25 @@ public class PauseMenu : MonoBehaviour {
     Canvas canvas;
     SettingsPanel activeSettingsPanel;
 
+    bool menuButtonHeldPrev;
+
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        // Escape on desktop; in VR the application-menu button above the trackpad on either
+        // controller (the hamburger icon on Vive wands).
+        bool menuButtonHeld = MenuButtonHeld(UnityEngine.XR.XRNode.LeftHand) || MenuButtonHeld(UnityEngine.XR.XRNode.RightHand);
+        bool menuButtonPressed = menuButtonHeld && !menuButtonHeldPrev;
+        menuButtonHeldPrev = menuButtonHeld;
+
+        if (Input.GetKeyDown(KeyCode.Escape) || menuButtonPressed) {
             if (paused) Resume();
             else Pause();
         }
+    }
+
+    static bool MenuButtonHeld(UnityEngine.XR.XRNode node) {
+        UnityEngine.XR.InputDevice device = UnityEngine.XR.InputDevices.GetDeviceAtXRNode(node);
+        bool held = false;
+        return device.isValid && device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.menuButton, out held) && held;
     }
 
     void Pause() {
@@ -95,9 +109,14 @@ public class PauseMenu : MonoBehaviour {
 
     void OpenSettings() {
         canvasGO.SetActive(false);
-        activeSettingsPanel = gameObject.AddComponent<SettingsPanel>();
+        // Open exactly where the pause menu was. Adding the panel to this (rig) object put its
+        // canvas at the rig origin — on the floor at the player's feet — so it looked like nothing happened.
+        GameObject settingsGO = new GameObject("SettingsPanel");
+        settingsGO.transform.SetParent(transform, false);
+        settingsGO.transform.SetPositionAndRotation(canvasGO.transform.position, canvasGO.transform.rotation);
+        activeSettingsPanel = settingsGO.AddComponent<SettingsPanel>();
         activeSettingsPanel.Initialize(() => {
-            Destroy(activeSettingsPanel);
+            Destroy(settingsGO);
             activeSettingsPanel = null;
             if (paused) canvasGO.SetActive(true);
         });

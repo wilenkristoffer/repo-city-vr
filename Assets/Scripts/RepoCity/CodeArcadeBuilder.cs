@@ -66,7 +66,9 @@ public static class CodeArcadeBuilder {
 
         GameObject mount = new GameObject("Kiosk_" + challenge.id);
         mount.transform.SetParent(parent, false);
-        Vector3 mountPos = new Vector3(basePos.x, 1.5f, basePos.z + 0.6f);
+        // Panel is 1.7 m tall and centred on the mount: 1.8 m puts its bottom edge just above the
+        // 0.9 m desk top and its middle around standing eye height.
+        Vector3 mountPos = new Vector3(basePos.x, 1.8f, basePos.z + 0.6f);
         mount.transform.localPosition = mountPos;
 
         // Same approach-direction assumption as the sign: readable from the east (+X).

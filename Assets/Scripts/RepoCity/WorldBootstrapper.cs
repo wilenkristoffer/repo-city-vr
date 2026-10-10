@@ -19,6 +19,7 @@ namespace RepoCity {
         void Start() {
             GameSettings.EnsureLoaded();
             AudioManager.EnsureInitialized();
+            AudioManager.PlayAmbience("city_traffic_loop", 0.2f);
             WorldLighting.Setup();
             gameObject.AddComponent<DayNightCycle>();
 
@@ -98,17 +99,20 @@ namespace RepoCity {
             rightHandPointerGO.transform.SetParent(rig.transform, false);
             rightHandPointerGO.AddComponent<VrUiPointer>().hand = XRNode.RightHand;
 
+            HandVisual.CreateFor(rig.transform, XRNode.LeftHand);
+            HandVisual.CreateFor(rig.transform, XRNode.RightHand);
+
             if (playerCam != null) {
                 GameObject minimapGO = new GameObject("MiniMap");
                 if (UnityEngine.XR.XRSettings.isDeviceActive) {
                     // In VR a head-locked corner panel sits at the lens edge, can't be read in full and
                     // can't be dismissed. Mount it on the left controller instead: raise the hand to
-                    // read it; the menu button on either controller shows/hides it.
+                    // read it; clicking the left trackpad shows/hides it.
                     GameObject leftHandAnchorGO = new GameObject("LeftHandAnchor");
                     leftHandAnchorGO.transform.SetParent(rig.transform, false);
                     HandAnchor anchor = leftHandAnchorGO.AddComponent<HandAnchor>();
                     anchor.hand = XRNode.LeftHand;
-                    anchor.toggleWithMenuButton = true;
+                    anchor.toggleWithTrackpadClick = true;
                     minimapGO.transform.SetParent(leftHandAnchorGO.transform, false);
                     minimapGO.transform.localPosition = new Vector3(0f, 0.06f, 0.06f);
                     // Tilt the readable face up toward the eyes when the controller is held forward.

@@ -28,7 +28,9 @@ public class CodeKiosk : MonoBehaviour {
 
         RectTransform canvasRect = canvasGO.GetComponent<RectTransform>();
         canvasRect.sizeDelta = new Vector2(520f, 680f);
-        canvasGO.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+        // 0.0025 m per canvas unit: 1.3 m x 1.7 m, 12pt text ~3 cm. At 0.01 the panel was 5.2 x 6.8 m,
+        // overlapped neighbouring kiosks and its results area hung ~2 m below the ground.
+        canvasGO.transform.localScale = new Vector3(0.0025f, 0.0025f, 0.0025f);
         canvasGO.transform.localPosition = Vector3.zero;
         canvasGO.transform.localRotation = Quaternion.identity;
 
@@ -92,7 +94,11 @@ public class CodeKiosk : MonoBehaviour {
 
         resultsText = CreateText(canvasGO.transform, "Results", font, 12, FontStyle.Normal, TextAnchor.UpperLeft);
         SetRect(resultsText.rectTransform, new Vector2(0f, 0f), new Vector2(1f, 1f), new Vector2(10f, 6f), new Vector2(-10f, -458f));
-        resultsText.verticalOverflow = VerticalWrapMode.Overflow;
+        // Shrink long test output to fit instead of spilling out below the panel.
+        resultsText.verticalOverflow = VerticalWrapMode.Truncate;
+        resultsText.resizeTextForBestFit = true;
+        resultsText.resizeTextMinSize = 6;
+        resultsText.resizeTextMaxSize = 12;
         resultsText.text = "Press Run to test your code.";
     }
 

@@ -21,8 +21,14 @@ namespace RepoCity {
         static Vector3 recenterPos = Vector3.zero;
 
         public static void EnsureOn(Camera cam) {
-            if (cam != null && cam.GetComponent<HeadTracker>() == null) {
+            if (cam == null) return;
+            if (cam.GetComponent<HeadTracker>() == null) {
                 cam.gameObject.AddComponent<HeadTracker>();
+            }
+            // Every scene builds its camera in code, and AddComponent<Camera>() doesn't come with the
+            // AudioListener a default scene camera has — without one, every sound plays into silence.
+            if (cam.GetComponent<AudioListener>() == null) {
+                cam.gameObject.AddComponent<AudioListener>();
             }
         }
 

@@ -45,16 +45,16 @@ namespace RepoCity {
             float y = -74f;
 
             Slider masterSlider = AddSliderRow(canvasGO.transform, font, "Master Volume", ref y, 0f, 1f, AudioManager.MasterVolume);
-            masterSlider.onValueChanged.AddListener(v => { AudioManager.SetMasterVolume(v); AudioManager.PlayUi("ui_click"); });
+            masterSlider.onValueChanged.AddListener(v => { AudioManager.SetMasterVolume(v); SliderTick(); });
 
             Slider musicSlider = AddSliderRow(canvasGO.transform, font, "Music Volume", ref y, 0f, 1f, AudioManager.MusicVolume);
-            musicSlider.onValueChanged.AddListener(v => { AudioManager.SetMusicVolume(v); AudioManager.PlayUi("ui_click"); });
+            musicSlider.onValueChanged.AddListener(v => { AudioManager.SetMusicVolume(v); SliderTick(); });
 
             Slider sfxSlider = AddSliderRow(canvasGO.transform, font, "SFX Volume", ref y, 0f, 1f, AudioManager.SfxVolume);
-            sfxSlider.onValueChanged.AddListener(v => { AudioManager.SetSfxVolume(v); AudioManager.PlayUi("ui_click"); });
+            sfxSlider.onValueChanged.AddListener(v => { AudioManager.SetSfxVolume(v); SliderTick(); });
 
             Slider sensitivitySlider = AddSliderRow(canvasGO.transform, font, "Mouse Sensitivity", ref y, 0.1f, 5f, GameSettings.MouseSensitivity);
-            sensitivitySlider.onValueChanged.AddListener(v => { GameSettings.SetMouseSensitivity(v); AudioManager.PlayUi("ui_click"); });
+            sensitivitySlider.onValueChanged.AddListener(v => { GameSettings.SetMouseSensitivity(v); SliderTick(); });
 
             RectTransform qualityRow = AddRow(canvasGO.transform, "QualityRow", ref y);
             CreateRowLabel(qualityRow, font, "Quality");
@@ -79,6 +79,15 @@ namespace RepoCity {
                 canvasGO.SetActive(false);
                 onClose?.Invoke();
             });
+        }
+
+        static float lastTickTime;
+
+        // Slider values change every frame while dragged with the VR laser; one click per change spammed audio.
+        static void SliderTick() {
+            if (Time.unscaledTime - lastTickTime < 0.08f) return;
+            lastTickTime = Time.unscaledTime;
+            AudioManager.PlayUi("ui_click", 0.5f);
         }
 
         Slider AddSliderRow(Transform parent, Font font, string label, ref float y, float min, float max, float initial) {

@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\RepoCity\CodeArcadeBuilder.cs" />
     <Compile Include="Assets\Scripts\RepoCity\DayNightCycle.cs" />
     <Compile Include="Assets\Scripts\RepoCity\RepoData.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\HandVisual.cs" />
     <Compile Include="Assets\Scripts\RepoCity\OllamaNarrator.cs" />
     <Compile Include="Assets\Scripts\RepoCity\SceneBootstrapper.cs" />
     <Compile Include="Assets\Scripts\RepoCity\VegetationScatter.cs" />

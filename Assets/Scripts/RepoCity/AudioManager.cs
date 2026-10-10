@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RepoCity {
 
-    // Static facade over two persistent AudioSources (2D "ui" bus and 2D "music" bus) plus
+    // Static facade over three persistent AudioSources (2D "ui", "music" and looping "ambience" buses) plus
     // PlayClipAtPoint for one-off positional sounds (footsteps, NPC blips). Volumes persist via
     // PlayerPrefs so the settings menu and in-game audio stay in sync across scene loads.
     public static class AudioManager {
@@ -18,6 +18,9 @@ namespace RepoCity {
         static GameObject root;
         static AudioSource uiSource;
         static AudioSource musicSource;
+        static AudioSource ambienceSource;
+        static float ambienceLevel;
+        static string currentAmbienceClip;
         static readonly Dictionary<string, AudioClip> clipCache = new Dictionary<string, AudioClip>();
         static string currentMusicClip;
 
@@ -40,6 +43,11 @@ namespace RepoCity {
             musicSource.playOnAwake = false;
             musicSource.loop = true;
             musicSource.volume = MusicVolume * MasterVolume;
+
+            ambienceSource = root.AddComponent<AudioSource>();
+            ambienceSource.spatialBlend = 0f;
+            ambienceSource.playOnAwake = false;
+            ambienceSource.loop = true;
         }
 
         static AudioClip LoadClip(string clipName) {
@@ -78,6 +86,29 @@ namespace RepoCity {
             musicSource.Play();
         }
 
+        // Low background bed (city traffic) under everything else. level is relative to the SFX bus,
+        // so the settings sliders still control it.
+        public static void PlayAmbience(string clipName, float level) {
+            EnsureInitialized();
+            ambienceLevel = level;
+            ApplyAmbienceVolume();
+            if (currentAmbienceClip == clipName && ambienceSource.isPlaying) return;
+            AudioClip clip = LoadClip(clipName);
+            if (clip == null) return;
+            currentAmbienceClip = clipName;
+            ambienceSource.clip = clip;
+            ambienceSource.Play();
+        }
+
+        public static void StopAmbience() {
+            if (ambienceSource != null) ambienceSource.Stop();
+            currentAmbienceClip = null;
+        }
+
+        static void ApplyAmbienceVolume() {
+            if (ambienceSource != null) ambienceSource.volume = ambienceLevel * SfxVolume * MasterVolume;
+        }
+
         public static void StopMusic() {
             if (musicSource != null) musicSource.Stop();
             currentMusicClip = null;
@@ -87,6 +118,7 @@ namespace RepoCity {
             EnsureInitialized();
             MasterVolume = Mathf.Clamp01(v);
             musicSource.volume = MusicVolume * MasterVolume;
+            ApplyAmbienceVolume();
             PlayerPrefs.SetFloat(PrefMaster, MasterVolume);
             PlayerPrefs.Save();
         }
@@ -102,6 +134,7 @@ namespace RepoCity {
         public static void SetSfxVolume(float v) {
             EnsureInitialized();
             SfxVolume = Mathf.Clamp01(v);
+            ApplyAmbienceVolume();
             PlayerPrefs.SetFloat(PrefSfx, SfxVolume);
             PlayerPrefs.Save();
         }

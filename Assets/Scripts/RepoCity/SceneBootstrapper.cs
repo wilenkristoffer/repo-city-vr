@@ -14,6 +14,7 @@ namespace RepoCity {
 
         void Start() {
             WorldLighting.Setup();
+            AudioManager.PlayAmbience("city_traffic_loop", 0.2f);
 
             RepoData data;
             CityLayoutResult layout;
@@ -77,6 +78,8 @@ namespace RepoCity {
                 camGO.transform.localRotation = Quaternion.identity;
             }
             HeadTracker.EnsureOn(rig.GetComponentInChildren<Camera>());
+            HandVisual.CreateFor(rig.transform, UnityEngine.XR.XRNode.LeftHand);
+            HandVisual.CreateFor(rig.transform, UnityEngine.XR.XRNode.RightHand);
 
             Locomotion locomotion = rig.AddComponent<Locomotion>();
 
