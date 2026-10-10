@@ -81,6 +81,7 @@ namespace RepoCity {
                 camGO.transform.localPosition = new Vector3(0f, 1.6f, 0f);
                 camGO.transform.localRotation = Quaternion.identity;
             }
+            HeadTracker.EnsureOn(rig.GetComponentInChildren<Camera>());
             Camera playerCam = rig.GetComponentInChildren<Camera>();
 
             Locomotion locomotion = rig.AddComponent<Locomotion>();
@@ -99,9 +100,25 @@ namespace RepoCity {
 
             if (playerCam != null) {
                 GameObject minimapGO = new GameObject("MiniMap");
-                minimapGO.transform.SetParent(playerCam.transform, false);
-                minimapGO.transform.localPosition = new Vector3(0.35f, 0.22f, 0.6f);
-                minimapGO.transform.localRotation = Quaternion.identity;
+                if (UnityEngine.XR.XRSettings.isDeviceActive) {
+                    // In VR a head-locked corner panel sits at the lens edge, can't be read in full and
+                    // can't be dismissed. Mount it on the left controller instead: raise the hand to
+                    // read it; the menu button on either controller shows/hides it.
+                    GameObject leftHandAnchorGO = new GameObject("LeftHandAnchor");
+                    leftHandAnchorGO.transform.SetParent(rig.transform, false);
+                    HandAnchor anchor = leftHandAnchorGO.AddComponent<HandAnchor>();
+                    anchor.hand = XRNode.LeftHand;
+                    anchor.toggleWithMenuButton = true;
+                    minimapGO.transform.SetParent(leftHandAnchorGO.transform, false);
+                    minimapGO.transform.localPosition = new Vector3(0f, 0.06f, 0.06f);
+                    // Tilt the readable face up toward the eyes when the controller is held forward.
+                    minimapGO.transform.localRotation = Quaternion.Euler(45f, 0f, 0f);
+                    minimapGO.transform.localScale = Vector3.one * 0.6f;
+                } else {
+                    minimapGO.transform.SetParent(playerCam.transform, false);
+                    minimapGO.transform.localPosition = new Vector3(0.35f, 0.22f, 0.6f);
+                    minimapGO.transform.localRotation = Quaternion.identity;
+                }
                 minimapGO.AddComponent<MiniMapUI>().Initialize(islands, rigTransform);
 
                 GameObject toastGO = new GameObject("AchievementToast");

@@ -56,6 +56,7 @@
     <Compile Include="Assets\Scripts\RepoCity\NpcController.cs" />
     <Compile Include="Assets\Scripts\RepoCity\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\RepoCity\NpcChat.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\HeadTracker.cs" />
     <Compile Include="Assets\Scripts\RepoCity\TrafficController.cs" />
     <Compile Include="Assets\Scripts\RepoCity\SettingsPanel.cs" />
     <Compile Include="Assets\Scripts\RepoCity\MiniMapUI.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Scripts\RepoCity\VrUiPointer.cs" />
     <Compile Include="Assets\Scripts\RepoCity\CodeChallenges.cs" />
     <Compile Include="Assets\Scripts\RepoCity\Landmarks.cs" />
+    <Compile Include="Assets\Scripts\RepoCity\HandAnchor.cs" />
     <Compile Include="Assets\Scripts\RepoCity\MainMenu.cs" />
     <Compile Include="Assets\Scripts\RepoCity\CodeKiosk.cs" />
     <Compile Include="Assets\Scripts\RepoCity\GameSettings.cs" />

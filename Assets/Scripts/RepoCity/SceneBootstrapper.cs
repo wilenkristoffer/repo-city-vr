@@ -76,6 +76,7 @@ namespace RepoCity {
                 camGO.transform.localPosition = new Vector3(0f, 1.6f, 0f);
                 camGO.transform.localRotation = Quaternion.identity;
             }
+            HeadTracker.EnsureOn(rig.GetComponentInChildren<Camera>());
 
             Locomotion locomotion = rig.AddComponent<Locomotion>();
 

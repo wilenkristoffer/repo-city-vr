@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
@@ -44,6 +45,9 @@ namespace RepoCity
             leftTeleportLine.positionCount = 2;
             leftTeleportLine.startWidth = 0.03f;
             leftTeleportLine.endWidth = 0.03f;
+            // Without a material LineRenderers draw error-magenta. UI/Default is always in the build.
+            leftTeleportLine.material = new Material(Shader.Find("UI/Default"));
+            leftTeleportLine.startColor = leftTeleportLine.endColor = new Color(0.3f, 0.8f, 1f, 0.8f);
             leftTeleportLine.enabled = false;
 
             leftTeleportMarker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -62,6 +66,9 @@ namespace RepoCity
             rightTeleportLine.positionCount = 2;
             rightTeleportLine.startWidth = 0.03f;
             rightTeleportLine.endWidth = 0.03f;
+            // Without a material LineRenderers draw error-magenta. UI/Default is always in the build.
+            rightTeleportLine.material = new Material(Shader.Find("UI/Default"));
+            rightTeleportLine.startColor = rightTeleportLine.endColor = new Color(0.3f, 0.8f, 1f, 0.8f);
             rightTeleportLine.enabled = false;
 
             rightTeleportMarker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -133,12 +140,24 @@ namespace RepoCity
             bool triggerHeld = false;
             device.TryGetFeatureValue(CommonUsages.triggerButton, out triggerHeld);
 
+            // A trigger pull while this hand's laser is on a UI panel is a click, not a teleport.
+            XRNode node = (device.characteristics & InputDeviceCharacteristics.Left) != 0 ? XRNode.LeftHand : XRNode.RightHand;
+            if (triggerHeld && VrUiPointer.IsOverUi(node))
+            {
+                teleportLine.enabled = false;
+                teleportMarker.SetActive(false);
+                triggerHeldPrev = false;
+                hasValidLanding = false;
+                return false;
+            }
+
             if (triggerHeld)
             {
                 Vector3 localPos;
                 Quaternion localRot;
                 device.TryGetFeatureValue(CommonUsages.devicePosition, out localPos);
                 device.TryGetFeatureValue(CommonUsages.deviceRotation, out localRot);
+                HeadTracker.ToRigLocal(ref localPos, ref localRot);
 
                 Vector3 worldOrigin = transform.TransformPoint(localPos);
                 Vector3 worldDirection = transform.TransformDirection(localRot * Vector3.forward);
@@ -148,9 +167,14 @@ namespace RepoCity
 
                 if (found)
                 {
+                    // Draw the actual ballistic arc. A straight line from hand to landing point sat
+                    // visibly below where the controller was aiming.
                     teleportLine.enabled = true;
-                    teleportLine.SetPosition(0, worldOrigin);
-                    teleportLine.SetPosition(1, landing);
+                    teleportLine.positionCount = arcPoints.Count;
+                    for (int i = 0; i < arcPoints.Count; i++)
+                    {
+                        teleportLine.SetPosition(i, arcPoints[i]);
+                    }
                     teleportMarker.SetActive(true);
                     teleportMarker.transform.position = landing;
 
@@ -187,6 +211,8 @@ namespace RepoCity
         bool SolveTeleportArc(Vector3 origin, Vector3 direction, out Vector3 landing)
         {
             landing = Vector3.zero;
+            arcPoints.Clear();
+            arcPoints.Add(origin);
 
             Vector3 velocity = direction * teleportSpeed;
 
@@ -204,6 +230,7 @@ namespace RepoCity
                     float frac = denom != 0f ? prevPos.y / denom : 0f;
                     Vector3 hitPoint = Vector3.Lerp(prevPos, pos, frac);
                     hitPoint.y = 0f;
+                    arcPoints.Add(hitPoint);
 
                     float dist = Vector3.Distance(new Vector3(origin.x, 0f, origin.z), new Vector3(hitPoint.x, 0f, hitPoint.z));
                     if (dist <= teleportMaxRange)
@@ -214,11 +241,14 @@ namespace RepoCity
                     return false;
                 }
 
+                arcPoints.Add(pos);
                 prevPos = pos;
             }
 
             return false;
         }
+
+        readonly List<Vector3> arcPoints = new List<Vector3>();
 
         void UpdateHandInspect(InputDevice device, ref bool gripHeldPrev)
         {
@@ -243,6 +273,7 @@ namespace RepoCity
             Quaternion localRot;
             device.TryGetFeatureValue(CommonUsages.devicePosition, out localPos);
             device.TryGetFeatureValue(CommonUsages.deviceRotation, out localRot);
+            HeadTracker.ToRigLocal(ref localPos, ref localRot);
 
             Vector3 worldOrigin = transform.TransformPoint(localPos);
             Vector3 worldDirection = transform.TransformDirection(localRot * Vector3.forward);

@@ -19,6 +19,27 @@ namespace RepoCity
 
         bool triggerHeldPrev;
 
+        static bool leftOverUi;
+        static bool rightOverUi;
+
+        // True while that hand's laser is on a UI panel, so trigger presses there are UI clicks
+        // and Locomotion shouldn't also start a teleport.
+        public static bool IsOverUi(UnityEngine.XR.XRNode node)
+        {
+            return node == UnityEngine.XR.XRNode.LeftHand ? leftOverUi : rightOverUi;
+        }
+
+        static void SetOverUi(UnityEngine.XR.XRNode node, bool over)
+        {
+            if (node == UnityEngine.XR.XRNode.LeftHand) leftOverUi = over;
+            else rightOverUi = over;
+        }
+
+        void OnDisable()
+        {
+            SetOverUi(hand, false);
+        }
+
         void Start()
         {
             line = GetComponent<LineRenderer>();
@@ -29,6 +50,9 @@ namespace RepoCity
             line.positionCount = 2;
             line.startWidth = 0.004f;
             line.endWidth = 0.004f;
+            // Without a material LineRenderers draw error-magenta. UI/Default is always in the build.
+            line.material = new Material(Shader.Find("UI/Default"));
+            line.startColor = line.endColor = new Color(1f, 1f, 1f, 0.8f);
             line.enabled = false;
 
             if (FindObjectOfType<EventSystem>() == null)
@@ -52,6 +76,7 @@ namespace RepoCity
             InputDevice device = InputDevices.GetDeviceAtXRNode(hand);
             if (!device.isValid)
             {
+                SetOverUi(hand, false);
                 line.enabled = false;
                 triggerHeldPrev = false;
                 return;
@@ -61,6 +86,7 @@ namespace RepoCity
             Quaternion localRot;
             device.TryGetFeatureValue(CommonUsages.devicePosition, out localPos);
             device.TryGetFeatureValue(CommonUsages.deviceRotation, out localRot);
+            HeadTracker.ToRigLocal(ref localPos, ref localRot);
 
             Vector3 worldOrigin = transform.TransformPoint(localPos);
             Vector3 worldDirection = transform.TransformDirection(localRot * Vector3.forward);
@@ -69,7 +95,10 @@ namespace RepoCity
             Vector3 hitPoint;
             bool hit = FindClosestUiHit(worldOrigin, worldDirection, out hitObject, out hitPoint);
 
-            line.enabled = true;
+            // Only draw the laser when it's actually on a panel; otherwise it clutters the view and
+            // competes with Locomotion's teleport arc, which shares the trigger.
+            SetOverUi(hand, hit);
+            line.enabled = hit;
             line.SetPosition(0, worldOrigin);
             line.SetPosition(1, hit ? hitPoint : worldOrigin + worldDirection * maxDistance);
 

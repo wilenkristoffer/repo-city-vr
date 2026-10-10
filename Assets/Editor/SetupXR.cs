@@ -48,16 +48,8 @@ public static class SetupXR
         }
         else
         {
-            var vive = openXrSettings.GetFeature<HTCViveControllerProfile>();
-            if (vive != null)
-            {
-                vive.enabled = true;
-                Debug.Log("SetupXR: HTCViveControllerProfile enabled.");
-            }
-            else
-            {
-                Debug.LogWarning("SetupXR: HTCViveControllerProfile feature not found on this OpenXRSettings instance.");
-            }
+            EnableProfile<HTCViveControllerProfile>(openXrSettings);
+            EnableProfile<ValveIndexControllerProfile>(openXrSettings);
             EditorUtility.SetDirty(openXrSettings);
         }
 
@@ -65,5 +57,39 @@ public static class SetupXR
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         Debug.Log("SetupXR: Configure() complete.");
+    }
+
+    // Features are separate sub-assets: marking only the OpenXRSettings dirty does NOT save
+    // feature.enabled, which is why the Vive profile was silently off and controllers never showed up.
+    static void EnableProfile<T>(OpenXRSettings openXrSettings) where T : UnityEngine.XR.OpenXR.Features.OpenXRFeature
+    {
+        var feature = openXrSettings.GetFeature<T>();
+        if (feature == null)
+        {
+            Debug.LogWarning($"SetupXR: {typeof(T).Name} feature not found on this OpenXRSettings instance.");
+            return;
+        }
+        feature.enabled = true;
+        EditorUtility.SetDirty(feature);
+        Debug.Log($"SetupXR: {typeof(T).Name} enabled.");
+    }
+
+    // Batchmode entry point: enable the Vive + Index controller profiles and Multi Pass stereo.
+    // On the VIVE Pro 2 / SteamVR, Single Pass Instanced drew only the skybox even with MSAA off;
+    // Multi Pass + no MSAA is the combination verified in the headset.
+    public static void ConfigureControllers()
+    {
+        var openXrSettings = OpenXRSettings.GetSettingsForBuildTargetGroup(BuildTargetGroup.Standalone);
+        if (openXrSettings == null)
+        {
+            Debug.LogError("SetupXR: no OpenXRSettings for Standalone.");
+            return;
+        }
+        EnableProfile<HTCViveControllerProfile>(openXrSettings);
+        EnableProfile<ValveIndexControllerProfile>(openXrSettings);
+        openXrSettings.renderMode = OpenXRSettings.RenderMode.MultiPass;
+        EditorUtility.SetDirty(openXrSettings);
+        AssetDatabase.SaveAssets();
+        Debug.Log($"SetupXR: renderMode = {openXrSettings.renderMode}");
     }
 }
